@@ -20,4 +20,13 @@ class ViewController: UIViewController {
 		self.removeEmbeddedChildViewController(from: contactsTableContainerView)
 	}
 
+		// Navigation
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "AddNewContactSegue" {
+			if let destinationVC = segue.destination as? ContactScreenVC {
+				destinationVC.contactViewMode = ContactViewMode.add
+			}
+		}
+	}
+
 }

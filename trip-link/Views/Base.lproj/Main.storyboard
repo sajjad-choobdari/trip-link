@@ -60,7 +60,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="ksA-MN-aDH">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="K1O-Eg-Yxu"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="K1O-Eg-Yxu">
+                            <connections>
+                                <segue destination="vIY-6d-2DB" kind="show" identifier="AddNewContactSegue" id="x2V-kj-iyC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="contactsTableContainerView" destination="Gcg-LM-v6J" id="xwL-hf-V8f"/>
@@ -97,7 +101,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LVT-pM-ZWP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LVT-pM-ZWP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                                 <color key="separatorColor" systemColor="separatorColor"/>
                                 <prototypes>
@@ -128,6 +132,9 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vIY-6d-2DB" kind="show" identifier="ShowContactDetailSegue" id="UZQ-EX-HMe"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -149,7 +156,37 @@
             </objects>
             <point key="canvasLocation" x="1053" y="650"/>
         </scene>
+        <!--Contact ScreenVC-->
+        <scene sceneID="ISV-jF-iBi">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rUg-vv-DiH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tableViewController id="vIY-6d-2DB" customClass="ContactScreenVC" customModule="trip_link" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="4uE-L4-AIi" userLabel="Contact CRUD Table">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="71r-OT-PHR">
+                                <cells/>
+                            </tableViewSection>
+                            <tableViewSection id="dve-ci-1QS">
+                                <cells/>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vIY-6d-2DB" id="wIq-fa-lbH"/>
+                            <outlet property="delegate" destination="vIY-6d-2DB" id="vaK-2f-VxC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="QHN-Qi-RTX"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1942" y="-35"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="x2V-kj-iyC"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <systemColor name="secondaryLabelColor">

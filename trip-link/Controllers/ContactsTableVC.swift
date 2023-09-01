@@ -8,11 +8,17 @@
 import UIKit
 
 let contactCellReuseIdentifier = "ContactCell"
+
 class ContactsTableVC: UIViewController {
+	// Outlets
 	@IBOutlet var tableView: UITableView!
 
+	// Variables
 	private let contactsModel = Contacts()
 
+	// Methods
+	
+	// Life Cycles
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -22,8 +28,21 @@ class ContactsTableVC: UIViewController {
 		tableView.delegate = self
 	}
 
-}
+	// Navigation
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "ShowContactDetailSegue" {
+			if let indexPath = sender as? IndexPath {
+				let selectedContact = contactsModel.getItems()[indexPath.row]
 
+				if let destinationVC = segue.destination as? ContactScreenVC {
+					destinationVC.contactViewMode = ContactViewMode.view
+				}
+			}
+		}
+	}
+
+	// Actions
+}
 
 extension ContactsTableVC: UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,5 +70,7 @@ extension ContactsTableVC: UITableViewDataSource {
 }
 
 extension ContactsTableVC: UITableViewDelegate {
-	//
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		performSegue(withIdentifier: "ShowContactDetailSegue", sender: indexPath)
+	}
 }
