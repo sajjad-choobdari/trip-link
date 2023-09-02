@@ -19,6 +19,7 @@
 		6458F2992AA1C31E0065051F /* ContactsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F2982AA1C31E0065051F /* ContactsTableVC.swift */; };
 		6458F29B2AA1C41B0065051F /* ContactScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F29A2AA1C41B0065051F /* ContactScreenVC.swift */; };
 		6458F29E2AA1D0220065051F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F29D2AA1D0220065051F /* Helpers.swift */; };
+		64CF01C52AA274E4004907FD /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF01C42AA274E4004907FD /* CircularImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6458F2982AA1C31E0065051F /* ContactsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableVC.swift; sourceTree = "<group>"; };
 		6458F29A2AA1C41B0065051F /* ContactScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactScreenVC.swift; sourceTree = "<group>"; };
 		6458F29D2AA1D0220065051F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		64CF01C42AA274E4004907FD /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				642918572A9C86E3004F4390 /* Main.storyboard */,
 				6429185C2A9C86E5004F4390 /* LaunchScreen.storyboard */,
+				64CF01C42AA274E4004907FD /* CircularImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6458F2992AA1C31E0065051F /* ContactsTableVC.swift in Sources */,
+				64CF01C52AA274E4004907FD /* CircularImageView.swift in Sources */,
 				6458F29B2AA1C41B0065051F /* ContactScreenVC.swift in Sources */,
 				642918562A9C86E3004F4390 /* ViewController.swift in Sources */,
 				6458F29E2AA1D0220065051F /* Helpers.swift in Sources */,
@@ -358,7 +362,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -373,7 +377,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -391,7 +395,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,7 +410,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
