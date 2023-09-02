@@ -21,23 +21,47 @@ protocol ContactScreenDelegate: AnyObject {
 
 class ContactScreenVC: UIViewController {
 		// Outlets
+	@IBOutlet weak var firstNameTextField: UITextField!
+	@IBOutlet weak var lastNameTextField: UITextField!
+	@IBOutlet weak var phoneTextField: UITextField!
+	@IBOutlet weak var emailTextField: UITextField!
+	@IBOutlet weak var noteTextField: NegativePaddedTextView!
 	@IBOutlet weak var addPhotoButtonView: UIButton!
 	@IBOutlet weak var imageView: UIImageView!
 
 		// Variables
+	var contactsModel = Contacts()
 	var contactViewMode = ContactViewMode.view
 	var cancelButton: UIBarButtonItem!
 	var doneButton: UIBarButtonItem!
 	var editButton: UIBarButtonItem!
+	var contact: Contact?
 
 		// Life Cycles
 	override func viewDidLoad() {
+		if contactViewMode == ContactViewMode.view {
+			firstNameTextField.text = contact?.givenName
+			lastNameTextField.text = contact?.familyName
+			phoneTextField.text = contact?.phoneNumber
+			emailTextField.text = contact?.emailAddress
+			noteTextField.text = contact?.note
+			if let imageData = contact?.image {
+				imageView.image = UIImage(data: imageData)
+			}
+		}
 		super.viewDidLoad()
 
 		cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(onPressCancel))
 		doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(onPressDone))
 		editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(onPressEdit))
 
+		firstNameTextField.delegate = self
+		lastNameTextField.delegate = self
+		phoneTextField.delegate = self
+		emailTextField.delegate = self
+		noteTextField.delegate = self
+
+		updateFormHasBeenChangedState()
 		updateActionButtons(for: self.contactViewMode)
 
 		if (self.contactViewMode == ContactViewMode.add) {
@@ -88,6 +112,27 @@ class ContactScreenVC: UIViewController {
 		present(imagePicker, animated: true, completion: nil)
 	}
 
+	func updateFormHasBeenChangedState() {
+		let textInputs: [UITextInput] = [firstNameTextField, lastNameTextField, phoneTextField, emailTextField, noteTextField]
+
+		let allFieldsEmpty = textInputs.allSatisfy { inputView in
+			var text: String?
+
+			if let textField = inputView as? UITextField {
+				text = textField.text
+			} else if let textView = inputView as? UITextView {
+				text = textView.text
+			}
+
+			let trimmedText = text?.trimmingCharacters(in: .whitespacesAndNewlines)
+			let isInputViewEmpty = trimmedText?.isEmpty ?? true
+			return isInputViewEmpty
+		}
+
+
+		doneButton.isEnabled = !allFieldsEmpty
+	}
+
 	func showDiscardChangesAlert() {
 		let alert = UIAlertController(
 			title: "",
@@ -114,6 +159,23 @@ class ContactScreenVC: UIViewController {
 		self.present(alert, animated: true, completion: nil)
 	}
 
+	func handleAddingNewContact() {
+		guard let image = imageView.image else {
+			return
+		}
+		guard let imageData = image.pngData() else {
+			return
+		}
+		contactsModel.addNewContact(
+			firstName: firstNameTextField.text ?? "No Name",
+			lastName: lastNameTextField.text,
+			phone: phoneTextField.text,
+			email: emailTextField.text,
+			note: noteTextField.text,
+			image: imageData
+		)
+	}
+
 	// Actions
 	@objc func onPressEdit() {
 		if (contactViewMode == ContactViewMode.view) {
@@ -129,6 +191,8 @@ class ContactScreenVC: UIViewController {
 			updateActionButtons(for: ContactViewMode.view)
 		} else if (contactViewMode == ContactViewMode.add) {
 			// save changes and update model and navigate back
+			//
+			handleAddingNewContact()
 			navigateBack()
 		}
 	}
@@ -166,7 +230,16 @@ extension ContactScreenVC: UIImagePickerControllerDelegate {
 	}
 }
 extension ContactScreenVC: UINavigationControllerDelegate {
-		//
+	func textFieldDidChangeSelection(_ textField: UITextField) {
+		updateFormHasBeenChangedState()
+	}
+	func textViewDidChangeSelection(_ textView: UITextView) {
+		updateFormHasBeenChangedState()
+	}
+}
+
+extension ContactScreenVC: UITextFieldDelegate, UITextViewDelegate {
+
 }
 
 

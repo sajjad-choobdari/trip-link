@@ -22,10 +22,14 @@ class ContactsTableVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
+//		tableView.register(UITableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
 		tableView.backgroundColor = UIColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
+	}
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		tableView.reloadData()
 	}
 
 	// Navigation
@@ -36,12 +40,31 @@ class ContactsTableVC: UIViewController {
 
 				if let destinationVC = segue.destination as? ContactScreenVC {
 					destinationVC.contactViewMode = ContactViewMode.view
+					destinationVC.contact = selectedContact
 				}
 			}
 		}
 	}
 
 	// Actions
+	func getFullName(contactItem: Contact) -> String {
+		var fullName = ""
+
+		if let firstName = contactItem.givenName {
+			fullName += firstName
+		}
+		if let lastName = contactItem.familyName {
+			if !fullName.isEmpty {
+				fullName += " "
+			}
+			fullName += lastName
+		}
+	if fullName.isEmpty {
+		fullName += "No Name"
+	}
+
+		return fullName
+	}
 }
 
 extension ContactsTableVC: UITableViewDataSource {
@@ -53,10 +76,15 @@ extension ContactsTableVC: UITableViewDataSource {
 		return contactsModel.getItems().count
 	}
 
+	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath)
 		let contactItem = contactsModel.getItems()[indexPath.row]
-		cell.textLabel!.text = contactItem.givenName
+		cell.textLabel?.text = getFullName(contactItem: contactItem)
+		cell.detailTextLabel?.text = contactItem.phoneNumber
+		if let imageData = contactItem.image {
+			cell.imageView?.image = UIImage(data: imageData)
+		}
 		return cell
 	}
 

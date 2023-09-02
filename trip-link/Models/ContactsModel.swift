@@ -16,7 +16,7 @@ struct Contact {
 	var phoneNumber: String?
 	var emailAddress: String?
 	var note: String?
-	var birthday: Date?
+//	var birthday: Date?
 	var image: Data?
 
 	init(
@@ -25,7 +25,7 @@ struct Contact {
 		phone: String? = nil,
 		email: String? = nil,
 		note: String? = nil,
-		birthday: Date? = nil,
+//		birthday: Date? = nil,
 		image: Data? = nil
 	) {
 		self.id = UUID.init()
@@ -33,7 +33,7 @@ struct Contact {
 
 		self.givenName = firstName
 		self.familyName = lastName
-		self.birthday = birthday
+//		self.birthday = birthday
 		self.emailAddress = email
 		self.phoneNumber = phone
 
@@ -44,10 +44,10 @@ struct Contact {
 }
 
 class Contacts {
-	private var items: [Contact] = []
+	private static var items: [Contact] = []
 
 	public func getItems() -> [Contact] {
-		return self.items
+		return Contacts.items
 	}
 
 	public func addNewContact(
@@ -65,15 +65,15 @@ class Contacts {
 			phone: phone,
 			email: email,
 			note: note,
-			birthday: birthday,
+//			birthday: birthday,
 			image: image
 		)
-		self.items.append(newContact)
+		Contacts.items.append(newContact)
 	}
 
 	public func deleteContact(index: Int) {
-		if (self.items.indices.contains(index)) {
-			self.items.remove(at: index)
+		if (Contacts.items.indices.contains(index)) {
+			Contacts.items.remove(at: index)
 		} else {
 			print("Index does not exist in the array")
 			return
