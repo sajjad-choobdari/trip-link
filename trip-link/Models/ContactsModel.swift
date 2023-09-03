@@ -80,5 +80,13 @@ class Contacts {
 			return
 		}
 	}
+	public func deleteContactByUUID(id: UUID) {
+		if let index = Contacts.items.firstIndex(where: { $0.id == id }) {
+			Contacts.items.remove(at: index)
+		} else {
+			print("there is no contact with this id")
+			return
+		}
+	}
 
 }

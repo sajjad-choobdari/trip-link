@@ -28,6 +28,7 @@ class ContactScreenVC: UIViewController {
 	@IBOutlet weak var noteTextField: NegativePaddedTextView!
 	@IBOutlet weak var addPhotoButtonView: UIButton!
 	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var deleteContactButton: UIButton!
 
 		// Variables
 	var contactsModel = Contacts()
@@ -76,14 +77,17 @@ class ContactScreenVC: UIViewController {
 			case .add:
 				navigationItem.leftBarButtonItems = [cancelButton]
 				navigationItem.rightBarButtonItems = [doneButton]
+				deleteContactButton.isHidden = true
 				break
 			case .view:
 				navigationItem.leftBarButtonItems = []
 				navigationItem.rightBarButtonItems = [editButton]
+				deleteContactButton.isHidden = true
 				break
 			case .edit:
 				navigationItem.leftBarButtonItems = [cancelButton]
 				navigationItem.rightBarButtonItems = [doneButton]
+				deleteContactButton.isHidden = false
 				break
 		}
 	}
@@ -235,6 +239,39 @@ class ContactScreenVC: UIViewController {
 		presentImagePicker()
 	}
 
+
+	func showDeleteChangesAlert() {
+		let alert = UIAlertController(
+			title: nil,
+			message: nil,
+			preferredStyle: .actionSheet
+		)
+
+		let deleteAction = UIAlertAction(
+			title: "Delete Contact",
+			style: .destructive,
+			handler: { _ in
+				if let id = self.contact?.id {
+					self.contactsModel.deleteContactByUUID(id: id)
+					self.navigateBack()
+				}
+			}
+		)
+		let cancelAction = UIAlertAction(
+			title: "Cancel",
+			style: .cancel,
+			handler: nil
+		)
+
+		alert.addAction(deleteAction)
+		alert.addAction(cancelAction)
+
+		self.present(alert, animated: true, completion: nil)
+	}
+
+	@IBAction func onPressDeleteContact(_ sender: UIButton) {
+		showDeleteChangesAlert()
+	}
 }
 
 extension ContactScreenVC: UIImagePickerControllerDelegate {

@@ -112,7 +112,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="46.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="No Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="efP-yF-QYV">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="No Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="efP-yF-QYV">
                                                     <rect key="frame" x="59.833333333333329" y="6.6666666666666661" width="60" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -130,7 +130,7 @@
                                                         </hierarchicalColors>
                                                     </imageReference>
                                                 </imageView>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="tz6-YP-Rua">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tz6-YP-Rua">
                                                     <rect key="frame" x="59.833333333333329" y="26" width="28" height="12"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -339,23 +339,39 @@
                                     <constraint firstAttribute="height" constant="316" id="ocJ-aU-K3b"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYi-dy-DDP">
+                                <rect key="frame" x="0.0" y="486" width="414" height="48"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Delete Contact">
+                                    <color key="baseForegroundColor" systemColor="systemRedColor"/>
+                                    <color key="baseBackgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onPressDeleteContact:" destination="Ekj-Sw-Bb3" eventType="touchUpInside" id="ybX-jw-Bsw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rda-zl-NcP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="rda-zl-NcP" firstAttribute="trailing" secondItem="vYi-dy-DDP" secondAttribute="trailing" id="6yJ-pG-AVD"/>
+                            <constraint firstItem="vYi-dy-DDP" firstAttribute="leading" secondItem="rda-zl-NcP" secondAttribute="leading" id="7Nt-Tc-9lm"/>
+                            <constraint firstItem="vYi-dy-DDP" firstAttribute="top" secondItem="Atu-6k-TZx" secondAttribute="bottom" constant="16" id="KSA-h6-GIg"/>
                             <constraint firstItem="rda-zl-NcP" firstAttribute="trailing" secondItem="5Ii-qM-uyt" secondAttribute="trailing" id="Mh4-oR-z0N"/>
                             <constraint firstItem="5Ii-qM-uyt" firstAttribute="leading" secondItem="rda-zl-NcP" secondAttribute="leading" id="eIy-H7-1R0"/>
                             <constraint firstItem="5Ii-qM-uyt" firstAttribute="top" secondItem="rda-zl-NcP" secondAttribute="top" id="iiu-Ek-ndk"/>
+                            <constraint firstItem="vYi-dy-DDP" firstAttribute="height" secondItem="8pI-wv-rrk" secondAttribute="height" id="jPr-7b-KQe"/>
                             <constraint firstItem="5Ii-qM-uyt" firstAttribute="centerX" secondItem="Fap-wT-3j7" secondAttribute="centerX" id="kdC-CM-p00"/>
                             <constraint firstItem="Atu-6k-TZx" firstAttribute="top" secondItem="5Ii-qM-uyt" secondAttribute="bottom" id="qWT-z7-awj"/>
                             <constraint firstItem="Atu-6k-TZx" firstAttribute="leading" secondItem="rda-zl-NcP" secondAttribute="leading" id="uKO-qQ-bK1"/>
                             <constraint firstItem="rda-zl-NcP" firstAttribute="trailing" secondItem="Atu-6k-TZx" secondAttribute="trailing" id="vhj-K6-B0C"/>
+                            <constraint firstItem="vYi-dy-DDP" firstAttribute="centerX" secondItem="Fap-wT-3j7" secondAttribute="centerX" id="y9V-LK-g0k"/>
                             <constraint firstItem="Atu-6k-TZx" firstAttribute="centerX" secondItem="Fap-wT-3j7" secondAttribute="centerX" id="yyc-SI-KjF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1tR-hF-Tbp"/>
                     <connections>
                         <outlet property="addPhotoButtonView" destination="yRP-HE-KNS" id="u2V-xb-YqZ"/>
+                        <outlet property="deleteContactButton" destination="vYi-dy-DDP" id="CZd-C6-yIL"/>
                         <outlet property="emailTextField" destination="wjf-mn-GC7" id="Zv6-LH-HIe"/>
                         <outlet property="firstNameTextField" destination="vD7-s8-oyH" id="JC9-v0-gD7"/>
                         <outlet property="imageView" destination="o3U-9n-0Zt" id="Hge-r4-fgm"/>
@@ -393,6 +409,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
