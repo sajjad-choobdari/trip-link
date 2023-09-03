@@ -105,7 +105,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                                 <color key="separatorColor" systemColor="separatorColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" imageView="eT2-IP-ljm" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" imageView="eT2-IP-ljm" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP">
                                         <rect key="frame" x="0.0" y="50" width="414" height="46.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tpA-DW-pOP" id="wtJ-8K-s6U">
@@ -316,7 +316,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMn-u9-8qo">
-                                                <rect key="frame" x="15.333333333333334" y="8" width="31.333333333333321" height="17"/>
+                                                <rect key="frame" x="15.333333333333334" y="8" width="31.333333333333329" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" systemColor="tertiaryLabelColor"/>
                                                 <nil key="highlightedColor"/>

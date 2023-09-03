@@ -22,7 +22,7 @@ class ContactsTableVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-//		tableView.register(UITableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
+		tableView.register(UITableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
 		tableView.backgroundColor = UIColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -84,6 +84,8 @@ extension ContactsTableVC: UITableViewDataSource {
 		cell.detailTextLabel?.text = contactItem.phoneNumber
 		if let imageData = contactItem.image {
 			cell.imageView?.image = UIImage(data: imageData)
+//			cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.height ?? 0) / 2
+//			cell.imageView?.clipsToBounds = true
 		}
 		return cell
 	}

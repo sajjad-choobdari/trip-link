@@ -63,6 +63,7 @@ class ContactScreenVC: UIViewController {
 
 		updateFormHasBeenChangedState()
 		updateActionButtons(for: self.contactViewMode)
+		updateFieldsMode(for: self.contactViewMode)
 
 		if (self.contactViewMode == ContactViewMode.add) {
 			navigationItem.title = "New Contact"
@@ -83,6 +84,24 @@ class ContactScreenVC: UIViewController {
 			case .edit:
 				navigationItem.leftBarButtonItems = [cancelButton]
 				navigationItem.rightBarButtonItems = [doneButton]
+				break
+		}
+	}
+	func updateFieldsMode(for mode: ContactViewMode) {
+		let fields: [UITextField] = [firstNameTextField, lastNameTextField, phoneTextField, emailTextField]
+
+		switch mode {
+			case .add, .edit:
+				fields.forEach { field in
+					field.isUserInteractionEnabled = true
+					noteTextField.isEditable = true
+				}
+				break
+			case .view:
+				fields.forEach { field in
+					field.isUserInteractionEnabled = false
+					noteTextField.isEditable = false
+				}
 				break
 		}
 	}
@@ -181,6 +200,7 @@ class ContactScreenVC: UIViewController {
 		if (contactViewMode == ContactViewMode.view) {
 			contactViewMode = ContactViewMode.edit
 			updateActionButtons(for: ContactViewMode.edit)
+			updateFieldsMode(for: ContactViewMode.edit)
 		}
 	}
 
@@ -189,6 +209,7 @@ class ContactScreenVC: UIViewController {
 			// save changes and update model and view and get back to view mode
 			self.contactViewMode = ContactViewMode.view
 			updateActionButtons(for: ContactViewMode.view)
+			updateFieldsMode(for: ContactViewMode.view)
 		} else if (contactViewMode == ContactViewMode.add) {
 			// save changes and update model and navigate back
 			//
@@ -202,6 +223,7 @@ class ContactScreenVC: UIViewController {
 			// get confirmation from user for discarding changes and get back to view mode
 			self.contactViewMode = ContactViewMode.view
 			updateActionButtons(for: ContactViewMode.view)
+			updateFieldsMode(for: ContactViewMode.view)
 		} else if (contactViewMode == ContactViewMode.add) {
 			// get confirmation from user for discarding changes and navigate back
 			showDiscardChangesAlert()

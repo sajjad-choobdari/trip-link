@@ -36,6 +36,7 @@ struct Contact {
 //		self.birthday = birthday
 		self.emailAddress = email
 		self.phoneNumber = phone
+		self.note = note
 
 		if let imageData = image {
 			self.image = imageData
