@@ -78,7 +78,7 @@ extension ContactsTableVC: UITableViewDataSource {
 
 	
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-	var cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath) as! CustomizedTableViewCell
+	let cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath) as! CustomizedTableViewCell
 //	cell = CustomizedTableViewCell(style: .subtitle, reuseIdentifier: contactCellReuseIdentifier)
 	let contactItem = contactsModel.getItems()[indexPath.row]
 	cell.textLabel?.text = getFullName(contactItem: contactItem)

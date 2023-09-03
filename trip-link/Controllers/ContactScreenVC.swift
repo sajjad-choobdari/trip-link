@@ -92,7 +92,7 @@ class ContactScreenVC: UIViewController {
 				navigationItem.rightBarButtonItems = [doneButton]
 				deleteContactButton.isHidden = false
 				addPhotoButtonView.isHidden = false
-				if let contactImageData = contact?.mutableProps.image {
+				if contact?.mutableProps.image != nil {
 					addPhotoButtonView.setTitle("Edit", for: .normal)
 				}
 				break

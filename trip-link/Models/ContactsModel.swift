@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Contacts
 
 struct ImmutableContactProperties: Encodable, Decodable {
 	let id: UUID
@@ -83,6 +84,49 @@ class Contacts {
 		return Contacts.items
 	}
 
+	func loadDeviceContacts(onDone: (() -> Void)? = nil) {
+		do {
+			let deviceContactsStore = CNContactStore()
+			let keysToFetch = [
+				CNContactGivenNameKey,
+				CNContactFamilyNameKey,
+				CNContactPhoneNumbersKey,
+				CNContactEmailAddressesKey,
+				CNContactImageDataKey
+			]
+			/*
+			 As of Oct 2020 due to privacy concern, Apple adds a restriction on reading the notes field of a contact.
+			 Your app needs to be specifically entitled by Apple to access this field.
+			 Access to contacts' notes is only granted in a very limited set of circumstances.
+			*/
+			let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+
+			if (hasContactsAccess()) {
+				try deviceContactsStore.enumerateContacts(with: request) { (deviceContact, stop) in
+
+					let givenName = deviceContact.givenName
+					let familyName = deviceContact.familyName
+					let phoneNumber = deviceContact.phoneNumbers.first?.value.stringValue ?? ""
+					let emailAddress = deviceContact.emailAddresses.first?.value ?? ""
+					let imageData = deviceContact.imageData
+
+					let newContact = Contact(
+						firstName: givenName,
+						lastName: familyName,
+						phone: phoneNumber,
+						email: emailAddress as String?,
+						image: imageData
+					)
+					Contacts.items.append(newContact)
+				}
+				writeLocalContactsToDatabase()
+				onDone?()
+			}
+		}  catch {
+			print("Failed to load device contacts, error: \(error)")
+		}
+
+	}
 	private func fetchContactsFromDatabase() -> [Contact] {
 		guard let encodedData = UserDefaults.standard.data(forKey: contactsKey) else {
 			return []
@@ -116,7 +160,7 @@ class Contacts {
 		phone: String? = nil,
 		email: String? = nil,
 		note: String? = nil,
-		birthday: Date? = nil,
+//		birthday: Date? = nil,
 		image: Data? = nil,
 		onSuccess: (Contact) -> Void
 	) {
@@ -162,6 +206,12 @@ class Contacts {
 			print("there is no contact with this id")
 			return
 		}
+	}
+
+	func deleteAllContacts(onDone: (() -> Void)? = nil) {
+		Contacts.items = []
+		writeLocalContactsToDatabase()
+		onDone?()
 	}
 
 }
