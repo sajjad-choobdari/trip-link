@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct ImmutableContactProperties {
+struct ImmutableContactProperties: Encodable, Decodable {
 	let id: UUID
 	let createdAt: Date
 	init() {
@@ -17,7 +17,7 @@ struct ImmutableContactProperties {
 	}
 }
 
-struct MutableContactProperties {
+struct MutableContactProperties: Encodable, Decodable {
 	var givenName: String?
 	var familyName: String?
 	var phoneNumber: String?
@@ -49,7 +49,7 @@ struct MutableContactProperties {
 	}
 }
 
-struct Contact {
+struct Contact: Encodable, Decodable {
 	let immutableProps: ImmutableContactProperties
 	var mutableProps: MutableContactProperties
 
@@ -75,13 +75,42 @@ struct Contact {
 }
 
 class Contacts {
+	private let contactsKey = "Contacts"
 	private static var items: [Contact] = []
+//	private let userDefaults = UserDefaults.standard
 
-	public func getItems() -> [Contact] {
+	func getItems() -> [Contact] {
 		return Contacts.items
 	}
 
-	public func addNewContact(
+	private func fetchContactsFromDatabase() -> [Contact] {
+		guard let encodedData = UserDefaults.standard.data(forKey: contactsKey) else {
+			return []
+		}
+		do {
+			let decoder = JSONDecoder()
+			let savedContacts = try decoder.decode([Contact].self, from: encodedData)
+			return savedContacts
+		} catch {
+			print("Error occurred while decoding data: \(error)")
+			return []
+		}
+	}
+	private func writeLocalContactsToDatabase() {
+		do {
+			let encoder = JSONEncoder()
+			let encodedData = try encoder.encode(Contacts.items)
+			UserDefaults.standard.set(encodedData, forKey: contactsKey)
+		} catch {
+			print("Error occurred while encoding data: \(error)")
+		}
+	}
+
+	func syncLocalContactsWithDatabase() {
+		Contacts.items = fetchContactsFromDatabase()
+	}
+
+	func addNewContact(
 		firstName: String? = nil,
 		lastName: String? = nil,
 		phone: String? = nil,
@@ -101,29 +130,33 @@ class Contacts {
 			image: image
 		)
 		Contacts.items.append(newContact)
+		writeLocalContactsToDatabase()
 		onSuccess(newContact)
 	}
 
-	public func deleteContact(index: Int) {
+	func deleteContact(index: Int) {
 		if (Contacts.items.indices.contains(index)) {
 			Contacts.items.remove(at: index)
+			writeLocalContactsToDatabase()
 		} else {
 			print("Index does not exist in the array")
 			return
 		}
 	}
-	public func deleteContactByUUID(id: UUID) {
+	func deleteContactByUUID(id: UUID) {
 		if let index = Contacts.items.firstIndex(where: { $0.immutableProps.id == id }) {
 			Contacts.items.remove(at: index)
+			writeLocalContactsToDatabase()
 		} else {
 			print("there is no contact with this id")
 			return
 		}
 	}
 
-	public func updateContactByUUID(id: UUID, modifiedData: MutableContactProperties, onSuccess: () -> Void) {
+	func updateContactByUUID(id: UUID, modifiedData: MutableContactProperties, onSuccess: () -> Void) {
 		if let index = Contacts.items.firstIndex(where: { $0.immutableProps.id == id }) {
 			Contacts.items[index].mutableProps = modifiedData
+			writeLocalContactsToDatabase()
 			onSuccess()
 		} else {
 			print("there is no contact with this id")
