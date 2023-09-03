@@ -41,12 +41,12 @@ class ContactScreenVC: UIViewController {
 		// Life Cycles
 	override func viewDidLoad() {
 		if contactViewMode == .view {
-			firstNameTextField.text = contact?.givenName
-			lastNameTextField.text = contact?.familyName
-			phoneTextField.text = contact?.phoneNumber
-			emailTextField.text = contact?.emailAddress
-			noteTextField.text = contact?.note
-			if let imageData = contact?.image {
+			firstNameTextField.text = contact?.mutableProps.givenName
+			lastNameTextField.text = contact?.mutableProps.familyName
+			phoneTextField.text = contact?.mutableProps.phoneNumber
+			emailTextField.text = contact?.mutableProps.emailAddress
+			noteTextField.text = contact?.mutableProps.note
+			if let imageData = contact?.mutableProps.image {
 				imageView.image = UIImage(data: imageData)
 			}
 		}
@@ -137,7 +137,7 @@ class ContactScreenVC: UIViewController {
 
 	func updateFormHasBeenChangedState() {
 		let textFields: [String?] = [firstNameTextField?.text, lastNameTextField?.text, phoneTextField?.text, emailTextField?.text, noteTextField?.text]
-		let contactValues: [String?] = [contact?.givenName, contact?.familyName, contact?.phoneNumber, contact?.emailAddress, contact?.note]
+		let contactValues: [String?] = [contact?.mutableProps.givenName, contact?.mutableProps.familyName, contact?.mutableProps.phoneNumber, contact?.mutableProps.emailAddress, contact?.mutableProps.note]
 
 		if (self.contactViewMode == .add) {
 			let allFieldsEmpty = textFields.allSatisfy { text in
@@ -194,7 +194,13 @@ class ContactScreenVC: UIViewController {
 			email: emailTextField.text,
 			note: noteTextField.text,
 			image: imageData
-		)
+		) { addedContact in
+			contact = addedContact
+			self.contactViewMode = .view
+			updateFieldsMode(for: .view)
+			updateActionButtons(for: .view)
+			updateFormHasBeenChangedState()
+		}
 	}
 
 	// Actions
@@ -210,14 +216,25 @@ class ContactScreenVC: UIViewController {
 	@objc func onPressDone() {
 		if (contactViewMode == .edit) {
 			// save changes and update model and view and get back to view mode
-			self.contactViewMode = .view
-			updateActionButtons(for: .view)
-			updateFieldsMode(for: .view)
+			if let contactIdToModify = contact?.immutableProps.id {
+				let modifiedContact = Contact(
+					firstName: firstNameTextField.text,
+					lastName: lastNameTextField.text,
+					phone: phoneTextField.text,
+					email: emailTextField.text,
+					note: noteTextField.text,
+					image: imageView.image?.jpegData(compressionQuality: 0.8)
+				)
+				contactsModel.updateContactByUUID(id: contactIdToModify, modifiedData: modifiedContact.mutableProps) {
+					contact?.mutableProps = modifiedContact.mutableProps
+					self.contactViewMode = .view
+					updateActionButtons(for: .view)
+					updateFieldsMode(for: .view)
+					updateFormHasBeenChangedState()
+				}
+			}
 		} else if (contactViewMode == .add) {
-			// save changes and update model and navigate back
-			//
 			handleAddingNewContact()
-			navigateBack()
 		}
 	}
 
@@ -250,7 +267,7 @@ class ContactScreenVC: UIViewController {
 			title: "Delete Contact",
 			style: .destructive,
 			handler: { _ in
-				if let id = self.contact?.id {
+				if let id = self.contact?.immutableProps.id {
 					self.contactsModel.deleteContactByUUID(id: id)
 					self.navigateBack()
 				}

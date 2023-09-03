@@ -50,10 +50,10 @@ class ContactsTableVC: UIViewController {
 	func getFullName(contactItem: Contact) -> String {
 		var fullName = ""
 
-		if let firstName = contactItem.givenName {
+		if let firstName = contactItem.mutableProps.givenName {
 			fullName += firstName
 		}
-		if let lastName = contactItem.familyName {
+		if let lastName = contactItem.mutableProps.familyName {
 			if !fullName.isEmpty {
 				fullName += " "
 			}
@@ -81,8 +81,8 @@ extension ContactsTableVC: UITableViewDataSource {
 		let cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath)
 		let contactItem = contactsModel.getItems()[indexPath.row]
 		cell.textLabel?.text = getFullName(contactItem: contactItem)
-		cell.detailTextLabel?.text = contactItem.phoneNumber
-		if let imageData = contactItem.image {
+		cell.detailTextLabel?.text = contactItem.mutableProps.phoneNumber
+		if let imageData = contactItem.mutableProps.image {
 			cell.imageView?.image = UIImage(data: imageData)
 //			cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.height ?? 0) / 2
 //			cell.imageView?.clipsToBounds = true
