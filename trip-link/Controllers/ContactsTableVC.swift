@@ -22,7 +22,7 @@ class ContactsTableVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
+		tableView.register(CustomizedTableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
 		tableView.backgroundColor = UIColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -77,18 +77,21 @@ extension ContactsTableVC: UITableViewDataSource {
 	}
 
 	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath)
-		let contactItem = contactsModel.getItems()[indexPath.row]
-		cell.textLabel?.text = getFullName(contactItem: contactItem)
-		cell.detailTextLabel?.text = contactItem.mutableProps.phoneNumber
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	var cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath) as! CustomizedTableViewCell
+//	cell = CustomizedTableViewCell(style: .subtitle, reuseIdentifier: contactCellReuseIdentifier)
+	let contactItem = contactsModel.getItems()[indexPath.row]
+	cell.textLabel?.text = getFullName(contactItem: contactItem)
+	cell.detailTextLabel?.text = contactItem.mutableProps.phoneNumber
+	if let imageView = cell.imageView {
 		if let imageData = contactItem.mutableProps.image {
-			cell.imageView?.image = UIImage(data: imageData)
-//			cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.height ?? 0) / 2
-//			cell.imageView?.clipsToBounds = true
+			imageView.image = UIImage(data: imageData)
+		} else {
+			imageView.image = UIImage(systemName: "person.crop.circle")
 		}
-		return cell
 	}
+	return cell
+}
 
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
