@@ -37,6 +37,7 @@ class ContactScreenVC: UIViewController {
 	var doneButton: UIBarButtonItem!
 	var editButton: UIBarButtonItem!
 	var contact: Contact?
+	var formHasBeenChanged: Bool = false
 
 		// Life Cycles
 	override func viewDidLoad() {
@@ -78,16 +79,22 @@ class ContactScreenVC: UIViewController {
 				navigationItem.leftBarButtonItems = [cancelButton]
 				navigationItem.rightBarButtonItems = [doneButton]
 				deleteContactButton.isHidden = true
+				addPhotoButtonView.isHidden = false
 				break
 			case .view:
 				navigationItem.leftBarButtonItems = []
 				navigationItem.rightBarButtonItems = [editButton]
 				deleteContactButton.isHidden = true
+				addPhotoButtonView.isHidden = true
 				break
 			case .edit:
 				navigationItem.leftBarButtonItems = [cancelButton]
 				navigationItem.rightBarButtonItems = [doneButton]
 				deleteContactButton.isHidden = false
+				addPhotoButtonView.isHidden = false
+				if let contactImageData = contact?.mutableProps.image {
+					addPhotoButtonView.setTitle("Edit", for: .normal)
+				}
 				break
 		}
 	}
@@ -146,15 +153,27 @@ class ContactScreenVC: UIViewController {
 
 				return isInputViewEmpty
 			}
-			doneButton.isEnabled = !allFieldsEmpty
+			formHasBeenChanged = !allFieldsEmpty
+			if let image = imageView.image, !image.isSymbolImage {
+				formHasBeenChanged = true
+			}
 		} else if (self.contactViewMode == .edit) {
 			let allFieldsUntouched = !zip(textFields, contactValues).contains(where: { $0 != $1 })
 
-			doneButton.isEnabled = !allFieldsUntouched
+			formHasBeenChanged = !allFieldsUntouched
+			if let initialImageData = contact?.mutableProps.image,
+				 let currentImageData = imageView.image?.pngData(),
+				 currentImageData != initialImageData {
+				print(currentImageData)
+				print(initialImageData)
+				print(currentImageData == initialImageData)
+				formHasBeenChanged = true
+			}
 		}
+		doneButton.isEnabled = formHasBeenChanged
 	}
 
-	func showDiscardChangesAlert() {
+	func showDiscardChangesAlert(onAccept: @escaping () -> Void) {
 		let alert = UIAlertController(
 			title: "",
 			message: "Are you sure you want to discard your changes?",
@@ -165,7 +184,7 @@ class ContactScreenVC: UIViewController {
 			title: "Discard Changes",
 			style: .destructive,
 			handler: { _ in
-				self.navigateBack()
+				onAccept()
 			}
 		)
 		let keepEditingAction = UIAlertAction(
@@ -203,6 +222,21 @@ class ContactScreenVC: UIViewController {
 		}
 	}
 
+	func discardEditingChanges() {
+		firstNameTextField.text = contact?.mutableProps.givenName
+		lastNameTextField.text = contact?.mutableProps.familyName
+		phoneTextField.text = contact?.mutableProps.phoneNumber
+		emailTextField.text = contact?.mutableProps.emailAddress
+		noteTextField.text = contact?.mutableProps.note
+		if let imageData = contact?.mutableProps.image {
+			imageView.image = UIImage(data: imageData)
+		}
+
+		self.contactViewMode = .view
+		updateActionButtons(for: .view)
+		updateFieldsMode(for: .view)
+	}
+
 	// Actions
 	@objc func onPressEdit() {
 		if (contactViewMode == .view) {
@@ -223,7 +257,7 @@ class ContactScreenVC: UIViewController {
 					phone: phoneTextField.text,
 					email: emailTextField.text,
 					note: noteTextField.text,
-					image: imageView.image?.jpegData(compressionQuality: 0.8)
+					image: imageView.image?.pngData()
 				)
 				contactsModel.updateContactByUUID(id: contactIdToModify, modifiedData: modifiedContact.mutableProps) {
 					contact?.mutableProps = modifiedContact.mutableProps
@@ -241,12 +275,21 @@ class ContactScreenVC: UIViewController {
 	@objc func onPressCancel() {
 		if (contactViewMode == .edit) {
 			// get confirmation from user for discarding changes and get back to view mode
-			self.contactViewMode = .view
-			updateActionButtons(for: .view)
-			updateFieldsMode(for: .view)
+			if (formHasBeenChanged) {
+				showDiscardChangesAlert {
+					self.discardEditingChanges()
+				}
+			} else {
+				self.discardEditingChanges()
+			}
 		} else if (contactViewMode == .add) {
-			// get confirmation from user for discarding changes and navigate back
-			showDiscardChangesAlert()
+			if (formHasBeenChanged) {
+				showDiscardChangesAlert {
+					self.navigateBack()
+				}
+			} else {
+				navigateBack()
+			}
 		}
 	}
 
@@ -294,8 +337,8 @@ extension ContactScreenVC: UIImagePickerControllerDelegate {
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 		if let selectedImage = info[.originalImage] as? UIImage {
 			imageView.image = selectedImage
+			updateFormHasBeenChangedState()
 			addPhotoButtonView.setTitle("Edit", for: .normal)
-
 		}
 		picker.dismiss(animated: true, completion: nil)
 	}
