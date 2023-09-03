@@ -32,7 +32,7 @@ class ContactScreenVC: UIViewController {
 
 		// Variables
 	var contactsModel = Contacts()
-	var contactViewMode = ContactViewMode.view
+	var contactViewMode: ContactViewMode = .view
 	var cancelButton: UIBarButtonItem!
 	var doneButton: UIBarButtonItem!
 	var editButton: UIBarButtonItem!
@@ -40,7 +40,7 @@ class ContactScreenVC: UIViewController {
 
 		// Life Cycles
 	override func viewDidLoad() {
-		if contactViewMode == ContactViewMode.view {
+		if contactViewMode == .view {
 			firstNameTextField.text = contact?.givenName
 			lastNameTextField.text = contact?.familyName
 			phoneTextField.text = contact?.phoneNumber
@@ -66,7 +66,7 @@ class ContactScreenVC: UIViewController {
 		updateActionButtons(for: self.contactViewMode)
 		updateFieldsMode(for: self.contactViewMode)
 
-		if (self.contactViewMode == ContactViewMode.add) {
+		if (self.contactViewMode == .add) {
 			navigationItem.title = "New Contact"
 		}
 	}
@@ -136,24 +136,22 @@ class ContactScreenVC: UIViewController {
 	}
 
 	func updateFormHasBeenChangedState() {
-		let textInputs: [UITextInput] = [firstNameTextField, lastNameTextField, phoneTextField, emailTextField, noteTextField]
+		let textFields: [String?] = [firstNameTextField?.text, lastNameTextField?.text, phoneTextField?.text, emailTextField?.text, noteTextField?.text]
+		let contactValues: [String?] = [contact?.givenName, contact?.familyName, contact?.phoneNumber, contact?.emailAddress, contact?.note]
 
-		let allFieldsEmpty = textInputs.allSatisfy { inputView in
-			var text: String?
+		if (self.contactViewMode == .add) {
+			let allFieldsEmpty = textFields.allSatisfy { text in
+				let trimmedText = text?.trimmingCharacters(in: .whitespacesAndNewlines)
+				let isInputViewEmpty = trimmedText?.isEmpty ?? true
 
-			if let textField = inputView as? UITextField {
-				text = textField.text
-			} else if let textView = inputView as? UITextView {
-				text = textView.text
+				return isInputViewEmpty
 			}
+			doneButton.isEnabled = !allFieldsEmpty
+		} else if (self.contactViewMode == .edit) {
+			let allFieldsUntouched = !zip(textFields, contactValues).contains(where: { $0 != $1 })
 
-			let trimmedText = text?.trimmingCharacters(in: .whitespacesAndNewlines)
-			let isInputViewEmpty = trimmedText?.isEmpty ?? true
-			return isInputViewEmpty
+			doneButton.isEnabled = !allFieldsUntouched
 		}
-
-
-		doneButton.isEnabled = !allFieldsEmpty
 	}
 
 	func showDiscardChangesAlert() {
@@ -201,20 +199,21 @@ class ContactScreenVC: UIViewController {
 
 	// Actions
 	@objc func onPressEdit() {
-		if (contactViewMode == ContactViewMode.view) {
-			contactViewMode = ContactViewMode.edit
-			updateActionButtons(for: ContactViewMode.edit)
-			updateFieldsMode(for: ContactViewMode.edit)
+		if (contactViewMode == .view) {
+			contactViewMode = .edit
+			updateActionButtons(for: .edit)
+			updateFieldsMode(for: .edit)
+			updateFormHasBeenChangedState()
 		}
 	}
 
 	@objc func onPressDone() {
-		if (contactViewMode == ContactViewMode.edit) {
+		if (contactViewMode == .edit) {
 			// save changes and update model and view and get back to view mode
-			self.contactViewMode = ContactViewMode.view
-			updateActionButtons(for: ContactViewMode.view)
-			updateFieldsMode(for: ContactViewMode.view)
-		} else if (contactViewMode == ContactViewMode.add) {
+			self.contactViewMode = .view
+			updateActionButtons(for: .view)
+			updateFieldsMode(for: .view)
+		} else if (contactViewMode == .add) {
 			// save changes and update model and navigate back
 			//
 			handleAddingNewContact()
@@ -223,12 +222,12 @@ class ContactScreenVC: UIViewController {
 	}
 
 	@objc func onPressCancel() {
-		if (contactViewMode == ContactViewMode.edit) {
+		if (contactViewMode == .edit) {
 			// get confirmation from user for discarding changes and get back to view mode
-			self.contactViewMode = ContactViewMode.view
-			updateActionButtons(for: ContactViewMode.view)
-			updateFieldsMode(for: ContactViewMode.view)
-		} else if (contactViewMode == ContactViewMode.add) {
+			self.contactViewMode = .view
+			updateActionButtons(for: .view)
+			updateFieldsMode(for: .view)
+		} else if (contactViewMode == .add) {
 			// get confirmation from user for discarding changes and navigate back
 			showDiscardChangesAlert()
 		}
