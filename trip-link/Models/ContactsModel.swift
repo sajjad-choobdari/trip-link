@@ -1,9 +1,9 @@
-//
-//  ContactsModel.swift
-//  trip-link
-//
-//  Created by Sajjad Choobdari on 8/28/23.
-//
+	//
+	//  ContactsModel.swift
+	//  trip-link
+	//
+	//  Created by Sajjad Choobdari on 8/28/23.
+	//
 
 import Foundation
 import UIKit
@@ -12,6 +12,7 @@ import Contacts
 struct ImmutableContactProperties: Encodable, Decodable {
 	let id: UUID
 	let createdAt: Date
+
 	init() {
 		self.id = UUID.init()
 		self.createdAt = Date()
@@ -25,7 +26,6 @@ struct MutableContactProperties: Encodable, Decodable {
 	var emailAddress: String?
 	var note: String?
 	var image: Data?
-//	var birthday: Date?
 
 	init(
 		firstName: String? = nil,
@@ -34,7 +34,6 @@ struct MutableContactProperties: Encodable, Decodable {
 		email: String? = nil,
 		note: String? = nil,
 		image: Data? = nil
-//		birthday: Date? = nil,
 	) {
 
 		self.givenName = firstName
@@ -42,7 +41,6 @@ struct MutableContactProperties: Encodable, Decodable {
 		self.emailAddress = email
 		self.phoneNumber = phone
 		self.note = note
-//		self.birthday = birthday
 
 		if let imageData = image {
 			self.image = imageData
@@ -60,7 +58,7 @@ struct Contact: Encodable, Decodable {
 		phone: String? = nil,
 		email: String? = nil,
 		note: String? = nil,
-//		birthday: Date? = nil,
+		//		birthday: Date? = nil,
 		image: Data? = nil
 	) {
 		immutableProps = ImmutableContactProperties()
@@ -75,83 +73,100 @@ struct Contact: Encodable, Decodable {
 	}
 }
 
-class Contacts {
-	private let contactsKey = "Contacts"
-	private static var items: [Contact] = []
-//	private let userDefaults = UserDefaults.standard
+protocol ContactStore {
+	func fetchContacts() throws -> [Contact]
+	func storeContacts(_ contacts: [Contact]) throws
+}
 
-	func getItems() -> [Contact] {
-		return Contacts.items
+class UserDefaultContactStore: ContactStore {
+	private let contactsKey = "Contacts"
+	static let shared = UserDefaultContactStore() // Singleton instance
+
+	func fetchContacts() throws -> [Contact] {
+		guard let encodedData = UserDefaults.standard.data(forKey: contactsKey) else {
+			return []
+		}
+		let decoder = JSONDecoder()
+		return try decoder.decode([Contact].self, from: encodedData)
+	}
+
+	func storeContacts(_ contacts: [Contact]) throws {
+		let encoder = JSONEncoder()
+		let encodedData = try encoder.encode(contacts)
+		UserDefaults.standard.set(encodedData, forKey: contactsKey)
+	}
+}
+
+protocol DeviceContactsLoader {
+	func loadDeviceContacts() throws -> [Contact]
+}
+
+class CNContactDeviceContactsLoader: DeviceContactsLoader {
+	private let permissionsManager = PermissionsManager()
+	static let shared = CNContactDeviceContactsLoader() // Singleton instance
+
+	func loadDeviceContacts() throws -> [Contact] {
+		guard PermissionsManager.hasContactsAccess() else {
+			return []
+		}
+
+		var contacts: [Contact] = []
+
+		let deviceContactsStore = CNContactStore()
+		let keysToFetch = [
+			CNContactGivenNameKey,
+			CNContactFamilyNameKey,
+			CNContactPhoneNumbersKey,
+			CNContactEmailAddressesKey,
+			CNContactImageDataKey
+		]
+		let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+
+		try deviceContactsStore.enumerateContacts(with: request) { (deviceContact, stop) in
+			let givenName = deviceContact.givenName
+			let familyName = deviceContact.familyName
+			let phoneNumber = deviceContact.phoneNumbers.first?.value.stringValue ?? ""
+			let emailAddress = deviceContact.emailAddresses.first?.value ?? ""
+			let imageData = deviceContact.imageData
+
+			let newContact = Contact(
+				firstName: givenName,
+				lastName: familyName,
+				phone: phoneNumber,
+				email: emailAddress as String?,
+				image: imageData
+			)
+			contacts.append(newContact)
+		}
+
+		return contacts
+	}
+}
+
+class Contacts {
+	private static var items: [Contact] = []
+
+	func syncLocalContactsWithDatabase() {
+		do {
+			Contacts.items = try UserDefaultContactStore.shared.fetchContacts()
+		} catch {
+			print("Error occurred while decoding data: \(error)")
+		}
 	}
 
 	func loadDeviceContacts(onDone: (() -> Void)? = nil) {
 		do {
-			let deviceContactsStore = CNContactStore()
-			let keysToFetch = [
-				CNContactGivenNameKey,
-				CNContactFamilyNameKey,
-				CNContactPhoneNumbersKey,
-				CNContactEmailAddressesKey,
-				CNContactImageDataKey
-			]
-			/*
-			 As of Oct 2020 due to privacy concern, Apple adds a restriction on reading the notes field of a contact.
-			 Your app needs to be specifically entitled by Apple to access this field.
-			 Access to contacts' notes is only granted in a very limited set of circumstances.
-			*/
-			let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
-
-			if (hasContactsAccess()) {
-				try deviceContactsStore.enumerateContacts(with: request) { (deviceContact, stop) in
-
-					let givenName = deviceContact.givenName
-					let familyName = deviceContact.familyName
-					let phoneNumber = deviceContact.phoneNumbers.first?.value.stringValue ?? ""
-					let emailAddress = deviceContact.emailAddresses.first?.value ?? ""
-					let imageData = deviceContact.imageData
-
-					let newContact = Contact(
-						firstName: givenName,
-						lastName: familyName,
-						phone: phoneNumber,
-						email: emailAddress as String?,
-						image: imageData
-					)
-					Contacts.items.append(newContact)
-				}
-				writeLocalContactsToDatabase()
-				onDone?()
-			}
-		}  catch {
-			print("Failed to load device contacts, error: \(error)")
-		}
-
-	}
-	private func fetchContactsFromDatabase() -> [Contact] {
-		guard let encodedData = UserDefaults.standard.data(forKey: contactsKey) else {
-			return []
-		}
-		do {
-			let decoder = JSONDecoder()
-			let savedContacts = try decoder.decode([Contact].self, from: encodedData)
-			return savedContacts
+			let deviceContacts = try CNContactDeviceContactsLoader.shared.loadDeviceContacts()
+			Contacts.items.append(contentsOf: deviceContacts)
+			try UserDefaultContactStore.shared.storeContacts(Contacts.items)
+			onDone?()
 		} catch {
-			print("Error occurred while decoding data: \(error)")
-			return []
-		}
-	}
-	private func writeLocalContactsToDatabase() {
-		do {
-			let encoder = JSONEncoder()
-			let encodedData = try encoder.encode(Contacts.items)
-			UserDefaults.standard.set(encodedData, forKey: contactsKey)
-		} catch {
-			print("Error occurred while encoding data: \(error)")
+			print("Failed to load device contacts or saving them to store: \(error)")
 		}
 	}
 
-	func syncLocalContactsWithDatabase() {
-		Contacts.items = fetchContactsFromDatabase()
+	func getItems() -> [Contact] {
+		return Contacts.items
 	}
 
 	func addNewContact(
@@ -160,7 +175,6 @@ class Contacts {
 		phone: String? = nil,
 		email: String? = nil,
 		note: String? = nil,
-//		birthday: Date? = nil,
 		image: Data? = nil,
 		onSuccess: (Contact) -> Void
 	) {
@@ -170,48 +184,64 @@ class Contacts {
 			phone: phone,
 			email: email,
 			note: note,
-//			birthday: birthday,
 			image: image
 		)
 		Contacts.items.append(newContact)
-		writeLocalContactsToDatabase()
-		onSuccess(newContact)
+		do {
+			try UserDefaultContactStore.shared.storeContacts(Contacts.items)
+			onSuccess(newContact)
+		} catch {
+			print("Error occurred while storing contact: \(error)")
+		}
 	}
 
 	func deleteContact(index: Int) {
-		if (Contacts.items.indices.contains(index)) {
+		if Contacts.items.indices.contains(index) {
 			Contacts.items.remove(at: index)
-			writeLocalContactsToDatabase()
+			do {
+				try UserDefaultContactStore.shared.storeContacts(Contacts.items)
+			} catch {
+				print("Error occurred while storing contacts after deletion: \(error)")
+			}
 		} else {
 			print("Index does not exist in the array")
-			return
 		}
 	}
+
 	func deleteContactByUUID(id: UUID) {
 		if let index = Contacts.items.firstIndex(where: { $0.immutableProps.id == id }) {
 			Contacts.items.remove(at: index)
-			writeLocalContactsToDatabase()
+			do {
+				try UserDefaultContactStore.shared.storeContacts(Contacts.items)
+			} catch {
+				print("Error occurred while storing contacts after deletion: \(error)")
+			}
 		} else {
-			print("there is no contact with this id")
-			return
+			print("There is no contact with this id")
 		}
 	}
 
 	func updateContactByUUID(id: UUID, modifiedData: MutableContactProperties, onSuccess: () -> Void) {
 		if let index = Contacts.items.firstIndex(where: { $0.immutableProps.id == id }) {
 			Contacts.items[index].mutableProps = modifiedData
-			writeLocalContactsToDatabase()
-			onSuccess()
+			do {
+				try UserDefaultContactStore.shared.storeContacts(Contacts.items)
+				onSuccess()
+			} catch {
+				print("Error occurred while storing updated contact: \(error)")
+			}
 		} else {
-			print("there is no contact with this id")
-			return
+			print("There is no contact with this id")
 		}
 	}
 
 	func deleteAllContacts(onDone: (() -> Void)? = nil) {
 		Contacts.items = []
-		writeLocalContactsToDatabase()
-		onDone?()
+		do {
+			try UserDefaultContactStore.shared.storeContacts(Contacts.items)
+			onDone?()
+		} catch {
+			print("Error occurred while storing contacts after deletion: \(error)")
+		}
 	}
-
 }

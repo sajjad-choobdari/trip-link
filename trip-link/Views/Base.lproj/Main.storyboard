@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                                 <color key="separatorColor" systemColor="separatorColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP" customClass="CustomizedTableViewCell" customModule="trip_link" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP" customClass="ContactsTableViewCell" customModule="trip_link" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="46.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tpA-DW-pOP" id="wtJ-8K-s6U">
@@ -277,7 +277,7 @@
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="addPhoto:" destination="Ekj-Sw-Bb3" eventType="touchUpInside" id="q9d-Sa-D4t"/>
+                                                    <action selector="onPressAddPhoto:" destination="Ekj-Sw-Bb3" eventType="touchUpInside" id="bQ5-31-c9h"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -461,11 +461,6 @@
             <point key="canvasLocation" x="1982.7906976744187" y="-35.407725321888414"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="o3U-9n-0Zt">
-            <size key="intrinsicContentSize" width="25.666666666666668" height="20.333333333333332"/>
-        </designable>
-    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="NBG-rN-x6k"/>
     </inferredMetricsTieBreakers>
