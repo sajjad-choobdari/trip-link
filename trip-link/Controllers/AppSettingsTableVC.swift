@@ -6,10 +6,65 @@
 
 import UIKit
 
+protocol CommandHandler {
+	func perform(on cell: UITableViewCell)
+}
+
+class LoadDeviceContactsHandler: CommandHandler {
+	weak var controller: UIViewController?
+	let contactsModel = Contacts()
+
+	func perform(on cell: UITableViewCell) {
+		guard PermissionsManager.hasContactsAccess() else {
+			PermissionsManager.requestContactsAccess()
+			return
+		}
+
+		cell.selectionStyle = .none
+		contactsModel.loadDeviceContacts {
+			cell.selectionStyle = .default
+			if let controller = self.controller {
+				AlertUtility.showAlert(on: controller, title: "Done", primaryActionTitle: "OK")
+			}
+		}
+	}
+}
+
+class DeleteAllContactsHandler: CommandHandler {
+	weak var controller: UIViewController?
+	let contactsModel = Contacts()
+
+	func perform(on cell: UITableViewCell) {
+		if let controller = self.controller {
+			AlertUtility.showActionSheet(
+				on: controller,
+				title: "",
+				message: "Are you sure you want to delete all your contacts? this action can not be undo",
+				confirmActionTitle: "Delete All Contacts",
+				confirmActionStyle: .destructive,
+				confirmHandler: { _ in
+					self.contactsModel.deleteAllContacts {
+						AlertUtility.showAlert(on: controller, title: "Done", primaryActionTitle: "OK")
+					}
+				}
+			)
+		}
+	}
+}
+
 class AppSettingsTableVC: UITableViewController {
 	@IBOutlet weak var loadDeviceContactsRow: UITableViewCell!
 
-	let contactsModel = Contacts()
+	lazy var cellClickHandlers: [String: CommandHandler] = {
+		let loadHandler = LoadDeviceContactsHandler()
+		loadHandler.controller = self
+		let deleteHandler = DeleteAllContactsHandler()
+		deleteHandler.controller = self
+		return [
+			"LoadDeviceContacts": loadHandler,
+			"DeleteAllContacts": deleteHandler
+		]
+	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -18,48 +73,13 @@ class AppSettingsTableVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 
-		guard let identifier = tableView.cellForRow(at: indexPath)?.reuseIdentifier else {
+		guard let cell = tableView.cellForRow(at: indexPath),
+					let identifier = cell.reuseIdentifier,
+					let handler = cellClickHandlers[identifier]
+		else {
 			return
 		}
 
-		switch identifier {
-			case "LoadDeviceContacts":
-				if (hasContactsAccess()) {
-					loadDeviceContactsRow.selectionStyle = .none
-					contactsModel.loadDeviceContacts {
-						self.loadDeviceContactsRow.selectionStyle = .default
-						let alert = UIAlertController(title: "Done", message: "", preferredStyle: .alert)
-						alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-						self.present(alert, animated: true, completion: nil)
-					}
-				} else {
-					requestContactsAccess()
-				}
-				break
-
-			case "DeleteAllContacts":
-				let alert = UIAlertController(
-					title: "",
-					message: "Are you sure you want to delete all your contacts? this action can not be undo",
-					preferredStyle: .actionSheet
-				)
-				alert.addAction(UIAlertAction(
-					title: "Delete All Contacts",
-					style: .destructive,
-					handler: { _ in
-						self.contactsModel.deleteAllContacts {
-							let alert = UIAlertController(title: "Done", message: "", preferredStyle: .alert)
-							alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-							self.present(alert, animated: true, completion: nil)
-						}
-					})
-				)
-				alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-				self.present(alert, animated: true, completion: nil)
-
-			default:
-				break
-		}
+		handler.perform(on: cell)
 	}
 }
-
