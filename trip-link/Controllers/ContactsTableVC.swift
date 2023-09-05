@@ -22,7 +22,7 @@ class ContactsTableVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.register(CustomizedTableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
+		tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: contactCellReuseIdentifier)
 		tableView.backgroundColor = UIColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -78,8 +78,8 @@ extension ContactsTableVC: UITableViewDataSource {
 
 	
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-	let cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath) as! CustomizedTableViewCell
-//	cell = CustomizedTableViewCell(style: .subtitle, reuseIdentifier: contactCellReuseIdentifier)
+	let cell = tableView.dequeueReusableCell(withIdentifier: contactCellReuseIdentifier, for: indexPath) as! ContactsTableViewCell
+//	cell = ContactsTableViewCell(style: .subtitle, reuseIdentifier: contactCellReuseIdentifier)
 	let contactItem = contactsModel.getItems()[indexPath.row]
 	cell.textLabel?.text = getFullName(contactItem: contactItem)
 	cell.detailTextLabel?.text = contactItem.mutableProps.phoneNumber

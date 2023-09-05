@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                                 <color key="separatorColor" systemColor="separatorColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP" customClass="CustomizedTableViewCell" customModule="trip_link" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP" customClass="ContactsTableViewCell" customModule="trip_link" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="46.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tpA-DW-pOP" id="wtJ-8K-s6U">
