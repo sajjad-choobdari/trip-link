@@ -461,11 +461,6 @@
             <point key="canvasLocation" x="1982.7906976744187" y="-35.407725321888414"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="o3U-9n-0Zt">
-            <size key="intrinsicContentSize" width="25.666666666666668" height="20.333333333333332"/>
-        </designable>
-    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="NBG-rN-x6k"/>
     </inferredMetricsTieBreakers>

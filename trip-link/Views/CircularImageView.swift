@@ -8,11 +8,21 @@
 import Foundation
 import UIKit
 
-@IBDesignable
-class CircularImageView: UIImageView {
-	override func layoutSubviews() {
-		super.layoutSubviews()
+
+protocol Roundable {
+	func makeRound()
+}
+
+extension Roundable where Self: UIImageView {
+	func makeRound() {
 		self.layer.cornerRadius = self.frame.size.width / 2
 		self.clipsToBounds = true
+	}
+}
+
+class CircularImageView: UIImageView, Roundable {
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		makeRound()
 	}
 }
