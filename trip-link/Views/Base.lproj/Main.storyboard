@@ -277,7 +277,7 @@
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="addPhoto:" destination="Ekj-Sw-Bb3" eventType="touchUpInside" id="q9d-Sa-D4t"/>
+                                                    <action selector="onPressAddPhoto:" destination="Ekj-Sw-Bb3" eventType="touchUpInside" id="bQ5-31-c9h"/>
                                                 </connections>
                                             </button>
                                         </subviews>

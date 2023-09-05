@@ -6,17 +6,12 @@
 //
 
 import UIKit
-import MobileCoreServices
 import UniformTypeIdentifiers
 
 enum ContactViewMode {
 	case view
 	case edit
 	case add
-}
-
-protocol ContactScreenDelegate: AnyObject {
-	var contactViewMode: ContactViewMode { get set }
 }
 
 class ContactScreenVC: UIViewController {
@@ -173,30 +168,12 @@ class ContactScreenVC: UIViewController {
 		doneButton.isEnabled = formHasBeenChanged
 	}
 
-	func showDiscardChangesAlert(onAccept: @escaping () -> Void) {
-		let alert = UIAlertController(
-			title: "",
-			message: "Are you sure you want to discard your changes?",
-			preferredStyle: .actionSheet
+	func showDiscardChangesAlert(completion: @escaping (UIAlertAction) -> Void) {
+		AlertUtility.showActionSheet(
+			on: self, title: "", message: "Are you sure you want to discard your changes?",
+			confirmActionTitle: "Discard Changes", confirmActionStyle: .destructive, confirmHandler: completion,
+			cancelActionTitle: "Keep Editing", cancelActionStyle: .cancel, cancelHandler: nil
 		)
-
-		let discardAction = UIAlertAction(
-			title: "Discard Changes",
-			style: .destructive,
-			handler: { _ in
-				onAccept()
-			}
-		)
-		let keepEditingAction = UIAlertAction(
-			title: "Keep Editing",
-			style: .cancel,
-			handler: nil
-		)
-
-		alert.addAction(discardAction)
-		alert.addAction(keepEditingAction)
-
-		self.present(alert, animated: true, completion: nil)
 	}
 
 	func handleAddingNewContact() {
@@ -274,9 +251,8 @@ class ContactScreenVC: UIViewController {
 
 	@objc func onPressCancel() {
 		if (contactViewMode == .edit) {
-			// get confirmation from user for discarding changes and get back to view mode
 			if (formHasBeenChanged) {
-				showDiscardChangesAlert {
+				showDiscardChangesAlert { _ in
 					self.discardEditingChanges()
 				}
 			} else {
@@ -284,7 +260,7 @@ class ContactScreenVC: UIViewController {
 			}
 		} else if (contactViewMode == .add) {
 			if (formHasBeenChanged) {
-				showDiscardChangesAlert {
+				showDiscardChangesAlert { _ in
 					self.navigateBack()
 				}
 			} else {
@@ -294,42 +270,28 @@ class ContactScreenVC: UIViewController {
 	}
 
 
-	@IBAction func addPhoto(_ sender: UIButton) {
+	@IBAction func onPressAddPhoto(_ sender: UIButton) {
 		presentImagePicker()
 	}
 
 
-	func showDeleteChangesAlert() {
-		let alert = UIAlertController(
-			title: nil,
-			message: nil,
-			preferredStyle: .actionSheet
-		)
+	func confirmDeleteContactPressed(_: UIAlertAction) {
+		if let id = self.contact?.immutableProps.id {
+			self.contactsModel.deleteContactByUUID(id: id)
+			self.navigateBack()
+		}
+	}
 
-		let deleteAction = UIAlertAction(
-			title: "Delete Contact",
-			style: .destructive,
-			handler: { _ in
-				if let id = self.contact?.immutableProps.id {
-					self.contactsModel.deleteContactByUUID(id: id)
-					self.navigateBack()
-				}
-			}
+	func showDeleteContactAlert() {
+		AlertUtility.showActionSheet(
+			on: self, title: "", message: "",
+			confirmActionTitle: "Delete Contact", confirmActionStyle: .destructive, confirmHandler: confirmDeleteContactPressed,
+			cancelActionTitle: "Cancel", cancelActionStyle: .cancel, cancelHandler: nil
 		)
-		let cancelAction = UIAlertAction(
-			title: "Cancel",
-			style: .cancel,
-			handler: nil
-		)
-
-		alert.addAction(deleteAction)
-		alert.addAction(cancelAction)
-
-		self.present(alert, animated: true, completion: nil)
 	}
 
 	@IBAction func onPressDeleteContact(_ sender: UIButton) {
-		showDeleteChangesAlert()
+		showDeleteContactAlert()
 	}
 }
 
@@ -347,6 +309,7 @@ extension ContactScreenVC: UIImagePickerControllerDelegate {
 		picker.dismiss(animated: true, completion: nil)
 	}
 }
+
 extension ContactScreenVC: UINavigationControllerDelegate {
 	func textFieldDidChangeSelection(_ textField: UITextField) {
 		updateFormHasBeenChangedState()
@@ -357,14 +320,5 @@ extension ContactScreenVC: UINavigationControllerDelegate {
 }
 
 extension ContactScreenVC: UITextFieldDelegate, UITextViewDelegate {
-
-}
-
-
-
-class NegativePaddedTextView: UITextView {
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: -4)
-	}
+	//
 }
