@@ -62,8 +62,8 @@ class ContactScreenVC: UIViewController {
 		updateActionButtons(for: self.contactViewMode)
 		updateFieldsMode(for: self.contactViewMode)
 
-		if (self.contactViewMode == .add) {
-			navigationItem.title = "New Contact"
+		if (self.contactViewMode != .add) {
+			navigationItem.title = ""
 		}
 	}
 
