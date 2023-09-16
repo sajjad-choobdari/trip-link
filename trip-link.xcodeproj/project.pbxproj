@@ -18,9 +18,9 @@
 		642D3EB82AA5261B0039B671 /* AppSettingsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642D3EB72AA5261B0039B671 /* AppSettingsTableVC.swift */; };
 		64517A432AA4BE22004F939E /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64517A412AA4BE22004F939E /* ContactsTableViewCell.swift */; };
 		6458F2972AA1C20F0065051F /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F2962AA1C20F0065051F /* UIViewControllerExtensions.swift */; };
-		6458F2992AA1C31E0065051F /* ContactsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F2982AA1C31E0065051F /* ContactsTableVC.swift */; };
 		6458F29B2AA1C41B0065051F /* ContactScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F29A2AA1C41B0065051F /* ContactScreenVC.swift */; };
 		6458F29E2AA1D0220065051F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F29D2AA1D0220065051F /* Helpers.swift */; };
+		646D53E52AB5DE72002B0B3E /* ContactsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646D53E42AB5DE72002B0B3E /* ContactsTableVC.swift */; };
 		64CF01C52AA274E4004907FD /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF01C42AA274E4004907FD /* CircularImageView.swift */; };
 		64D10EE12AA6EF9100684696 /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D10EE02AA6EF9100684696 /* PermissionsManager.swift */; };
 		64D10EE32AA6F72700684696 /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D10EE22AA6F72700684696 /* AlertUtility.swift */; };
@@ -41,9 +41,9 @@
 		642D3EB72AA5261B0039B671 /* AppSettingsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTableVC.swift; sourceTree = "<group>"; };
 		64517A412AA4BE22004F939E /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		6458F2962AA1C20F0065051F /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
-		6458F2982AA1C31E0065051F /* ContactsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableVC.swift; sourceTree = "<group>"; };
 		6458F29A2AA1C41B0065051F /* ContactScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactScreenVC.swift; sourceTree = "<group>"; };
 		6458F29D2AA1D0220065051F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		646D53E42AB5DE72002B0B3E /* ContactsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableVC.swift; sourceTree = "<group>"; };
 		64CF01C42AA274E4004907FD /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 		64D10EE02AA6EF9100684696 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
 		64D10EE22AA6F72700684696 /* AlertUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtility.swift; sourceTree = "<group>"; };
@@ -117,9 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				6458F29A2AA1C41B0065051F /* ContactScreenVC.swift */,
-				6458F2982AA1C31E0065051F /* ContactsTableVC.swift */,
 				642918552A9C86E3004F4390 /* ViewController.swift */,
 				642D3EB72AA5261B0039B671 /* AppSettingsTableVC.swift */,
+				646D53E42AB5DE72002B0B3E /* ContactsTableVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -219,9 +219,9 @@
 				642D3EB82AA5261B0039B671 /* AppSettingsTableVC.swift in Sources */,
 				64D10EE32AA6F72700684696 /* AlertUtility.swift in Sources */,
 				64D10EE12AA6EF9100684696 /* PermissionsManager.swift in Sources */,
-				6458F2992AA1C31E0065051F /* ContactsTableVC.swift in Sources */,
 				64CF01C52AA274E4004907FD /* CircularImageView.swift in Sources */,
 				6458F29B2AA1C41B0065051F /* ContactScreenVC.swift in Sources */,
+				646D53E52AB5DE72002B0B3E /* ContactsTableVC.swift in Sources */,
 				642918562A9C86E3004F4390 /* ViewController.swift in Sources */,
 				6458F29E2AA1D0220065051F /* Helpers.swift in Sources */,
 				642918522A9C86E3004F4390 /* AppDelegate.swift in Sources */,

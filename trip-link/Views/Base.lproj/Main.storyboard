@@ -34,7 +34,7 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gcg-LM-v6J" userLabel="Contacts Table Container View">
                                         <rect key="frame" x="8" y="44" width="414" height="743"/>
                                         <connections>
-                                            <segue destination="VAw-pf-SAB" kind="embed" id="cvS-yK-meT"/>
+                                            <segue destination="dHq-dV-NdB" kind="embed" id="IGP-WC-2Pr"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
@@ -99,61 +99,50 @@
             <point key="canvasLocation" x="130.53435114503816" y="-34.507042253521128"/>
         </scene>
         <!--Contacts TableVC-->
-        <scene sceneID="6xP-xP-U7N">
+        <scene sceneID="812-pY-5jm">
             <objects>
-                <viewController storyboardIdentifier="ContactsTableVC" id="VAw-pf-SAB" customClass="ContactsTableVC" customModule="trip_link" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="MHJ-5t-GVt">
+                <tableViewController storyboardIdentifier="ContactsTableVC" id="dHq-dV-NdB" customClass="ContactsTableVC" customModule="trip_link" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="HF3-cf-dHT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LVT-pM-ZWP">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
-                                <color key="separatorColor" systemColor="separatorColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="efP-yF-QYV" detailTextLabel="tz6-YP-Rua" style="IBUITableViewCellStyleSubtitle" id="tpA-DW-pOP" customClass="ContactsTableViewCell" customModule="trip_link" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="46.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tpA-DW-pOP" id="wtJ-8K-s6U">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="No Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="efP-yF-QYV">
-                                                    <rect key="frame" x="20" y="6.6666666666666661" width="60" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tz6-YP-Rua">
-                                                    <rect key="frame" x="20" y="26" width="28" height="12"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Ekj-Sw-Bb3" kind="show" identifier="ShowContactDetailSegue" id="NBG-rN-x6k"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="w9K-FA-cbk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="LVT-pM-ZWP" firstAttribute="top" secondItem="MHJ-5t-GVt" secondAttribute="top" id="H0q-yD-eXC"/>
-                            <constraint firstAttribute="bottom" secondItem="LVT-pM-ZWP" secondAttribute="bottom" id="fUZ-Lx-pfd"/>
-                            <constraint firstAttribute="trailing" secondItem="LVT-pM-ZWP" secondAttribute="trailing" id="jVv-sf-5gR"/>
-                            <constraint firstItem="LVT-pM-ZWP" firstAttribute="leading" secondItem="MHJ-5t-GVt" secondAttribute="leading" id="yCr-Dn-jE1"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="LVT-pM-ZWP" id="h8a-jB-vxo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fpB-dy-9LX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <color key="separatorColor" systemColor="separatorColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="FWU-h7-tqv" detailTextLabel="YS7-4M-pmB" style="IBUITableViewCellStyleSubtitle" id="8Md-oH-YUZ" customClass="ContactsTableViewCell" customModule="trip_link" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="414" height="46.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Md-oH-YUZ" id="hX8-Ui-V1h">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="46.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="No Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FWU-h7-tqv">
+                                            <rect key="frame" x="20" y="6.6666666666666661" width="60" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YS7-4M-pmB">
+                                            <rect key="frame" x="20" y="26" width="28" height="12"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Ekj-Sw-Bb3" kind="show" identifier="ShowContactDetailSegue" id="RRu-dI-5i0"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dHq-dV-NdB" id="F1b-oK-NK3"/>
+                            <outlet property="delegate" destination="dHq-dV-NdB" id="Bvs-41-H3v"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D6h-ze-03N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1053" y="650"/>
         </scene>
@@ -388,7 +377,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMn-u9-8qo">
-                                                <rect key="frame" x="15.333333333333334" y="8" width="31.333333333333329" height="17"/>
+                                                <rect key="frame" x="15.333333333333334" y="8" width="31.333333333333321" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" systemColor="tertiaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
@@ -462,7 +451,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NBG-rN-x6k"/>
+        <segue reference="RRu-dI-5i0"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="104"/>
