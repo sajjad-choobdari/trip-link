@@ -491,6 +491,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="vcJ-X9-fdZ"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="32A-kt-LPh">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -585,14 +586,29 @@
         <!--New Trip-->
         <scene sceneID="wcq-tL-i00">
             <objects>
-                <viewController id="xEw-4Y-2qY" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="TYT-Cn-v9B">
+                <viewController id="xEw-4Y-2qY" customClass="SelectDestinationScreenVC" customModule="trip_link" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TYT-Cn-v9B" userLabel="View" customClass="I">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G8I-t7-TNb" customClass="NTMapView">
+                                <rect key="frame" x="0.0" y="103" width="430" height="746"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="HTr-qj-fQZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HTr-qj-fQZ" firstAttribute="trailing" secondItem="G8I-t7-TNb" secondAttribute="trailing" id="WUp-nB-RGs"/>
+                            <constraint firstItem="HTr-qj-fQZ" firstAttribute="bottom" secondItem="G8I-t7-TNb" secondAttribute="bottom" id="fVw-Mw-ibe"/>
+                            <constraint firstItem="G8I-t7-TNb" firstAttribute="top" secondItem="HTr-qj-fQZ" secondAttribute="top" id="kWP-5U-QnC"/>
+                            <constraint firstItem="G8I-t7-TNb" firstAttribute="leading" secondItem="HTr-qj-fQZ" secondAttribute="leading" id="mZ8-0L-0vR"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Trip" id="gw3-NA-cvB"/>
+                    <connections>
+                        <outlet property="map" destination="G8I-t7-TNb" id="Rxf-sP-IBN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C6U-bt-6Gc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
