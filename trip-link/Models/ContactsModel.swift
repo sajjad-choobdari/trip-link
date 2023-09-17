@@ -146,7 +146,7 @@ class CNContactDeviceContactsLoader: DeviceContactsLoader {
 class Contacts {
 	private static var items: [Contact] = []
 
-	func syncLocalContactsWithDatabase() {
+	static func syncLocalContactsWithDatabase() {
 		do {
 			Contacts.items = try UserDefaultContactStore.shared.fetchContacts()
 		} catch {
