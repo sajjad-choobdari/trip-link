@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6400198B2AB6D72C00323CC9 /* SelectDestinationScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6400198A2AB6D72C00323CC9 /* SelectDestinationScreenVC.swift */; };
+		6400198B2AB6D72C00323CC9 /* TripMapScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6400198A2AB6D72C00323CC9 /* TripMapScreenVC.swift */; };
 		642918522A9C86E3004F4390 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642918512A9C86E3004F4390 /* AppDelegate.swift */; };
 		642918542A9C86E3004F4390 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642918532A9C86E3004F4390 /* SceneDelegate.swift */; };
 		642918562A9C86E3004F4390 /* ContactsScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642918552A9C86E3004F4390 /* ContactsScreenVC.swift */; };
@@ -27,18 +27,20 @@
 		646D53E72AB5EE2A002B0B3E /* TripsScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646D53E62AB5EE2A002B0B3E /* TripsScreenVC.swift */; };
 		646D53E92AB5EEC1002B0B3E /* TripsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646D53E82AB5EEC1002B0B3E /* TripsTableVC.swift */; };
 		646D53EB2AB5F222002B0B3E /* TripsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646D53EA2AB5F222002B0B3E /* TripsModel.swift */; };
+		647B96102AB7600D00D60408 /* NeshanHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647B960F2AB7600D00D60408 /* NeshanHelpers.swift */; };
 		64CF01C52AA274E4004907FD /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF01C42AA274E4004907FD /* CircularImageView.swift */; };
 		64D10EE12AA6EF9100684696 /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D10EE02AA6EF9100684696 /* PermissionsManager.swift */; };
 		64D10EE32AA6F72700684696 /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D10EE22AA6F72700684696 /* AlertUtility.swift */; };
 		64D10EE72AA7294800684696 /* NegativePaddedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D10EE62AA7294800684696 /* NegativePaddedTextView.swift */; };
-		BF45704F604C786B724F4460 /* Pods_trip_link.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5FD6EC023F499580B68A70B /* Pods_trip_link.framework */; };
+		64D7E2CE2AB8648B005ABE7C /* TripDetailsScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D7E2CD2AB8648B005ABE7C /* TripDetailsScreenVC.swift */; };
 		64DCE56C2AAE0A2F00DD0D28 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DCE56B2AAE0A2F00DD0D28 /* NetworkManager.swift */; };
+		BF45704F604C786B724F4460 /* Pods_trip_link.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5FD6EC023F499580B68A70B /* Pods_trip_link.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		00F5010CF454132796D6E451 /* Pods-trip-link.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trip-link.release.xcconfig"; path = "Target Support Files/Pods-trip-link/Pods-trip-link.release.xcconfig"; sourceTree = "<group>"; };
 		363D9F0F26CD4058D43F319B /* Pods-trip-link.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trip-link.debug.xcconfig"; path = "Target Support Files/Pods-trip-link/Pods-trip-link.debug.xcconfig"; sourceTree = "<group>"; };
-		6400198A2AB6D72C00323CC9 /* SelectDestinationScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDestinationScreenVC.swift; sourceTree = "<group>"; };
+		6400198A2AB6D72C00323CC9 /* TripMapScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripMapScreenVC.swift; sourceTree = "<group>"; };
 		6429184E2A9C86E3004F4390 /* trip-link.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "trip-link.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		642918512A9C86E3004F4390 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		642918532A9C86E3004F4390 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,13 +62,15 @@
 		646D53E62AB5EE2A002B0B3E /* TripsScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsScreenVC.swift; sourceTree = "<group>"; };
 		646D53E82AB5EEC1002B0B3E /* TripsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableVC.swift; sourceTree = "<group>"; };
 		646D53EA2AB5F222002B0B3E /* TripsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsModel.swift; sourceTree = "<group>"; };
+		647B960F2AB7600D00D60408 /* NeshanHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeshanHelpers.swift; sourceTree = "<group>"; };
 		64CF01C42AA274E4004907FD /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 		64D10EE02AA6EF9100684696 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
 		64D10EE22AA6F72700684696 /* AlertUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtility.swift; sourceTree = "<group>"; };
 		64D10EE62AA7294800684696 /* NegativePaddedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativePaddedTextView.swift; sourceTree = "<group>"; };
 		64D1CAAD2AB5DA1300D6F135 /* trip-link-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "trip-link-Bridging-Header.h"; sourceTree = "<group>"; };
-		E5FD6EC023F499580B68A70B /* Pods_trip_link.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trip_link.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64D7E2CD2AB8648B005ABE7C /* TripDetailsScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailsScreenVC.swift; sourceTree = "<group>"; };
 		64DCE56B2AAE0A2F00DD0D28 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E5FD6EC023F499580B68A70B /* Pods_trip_link.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trip_link.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +161,8 @@
 				646D53E42AB5DE72002B0B3E /* ContactsTableVC.swift */,
 				646D53E62AB5EE2A002B0B3E /* TripsScreenVC.swift */,
 				646D53E82AB5EEC1002B0B3E /* TripsTableVC.swift */,
-				6400198A2AB6D72C00323CC9 /* SelectDestinationScreenVC.swift */,
+				6400198A2AB6D72C00323CC9 /* TripMapScreenVC.swift */,
+				64D7E2CD2AB8648B005ABE7C /* TripDetailsScreenVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				64D10EE02AA6EF9100684696 /* PermissionsManager.swift */,
 				64D10EE22AA6F72700684696 /* AlertUtility.swift */,
 				64DCE56B2AAE0A2F00DD0D28 /* NetworkManager.swift */,
+				647B960F2AB7600D00D60408 /* NeshanHelpers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -295,11 +301,13 @@
 				642D3EB82AA5261B0039B671 /* AppSettingsTableVC.swift in Sources */,
 				64D10EE32AA6F72700684696 /* AlertUtility.swift in Sources */,
 				64D10EE12AA6EF9100684696 /* PermissionsManager.swift in Sources */,
-				6400198B2AB6D72C00323CC9 /* SelectDestinationScreenVC.swift in Sources */,
+				6400198B2AB6D72C00323CC9 /* TripMapScreenVC.swift in Sources */,
 				646D53E72AB5EE2A002B0B3E /* TripsScreenVC.swift in Sources */,
 				64CF01C52AA274E4004907FD /* CircularImageView.swift in Sources */,
 				6458F29B2AA1C41B0065051F /* ContactScreenVC.swift in Sources */,
 				646D53E52AB5DE72002B0B3E /* ContactsTableVC.swift in Sources */,
+				64D7E2CE2AB8648B005ABE7C /* TripDetailsScreenVC.swift in Sources */,
+				647B96102AB7600D00D60408 /* NeshanHelpers.swift in Sources */,
 				642918562A9C86E3004F4390 /* ContactsScreenVC.swift in Sources */,
 				6458F29E2AA1D0220065051F /* Helpers.swift in Sources */,
 				642918522A9C86E3004F4390 /* AppDelegate.swift in Sources */,
@@ -338,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -370,7 +379,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -399,6 +409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -431,7 +442,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -458,7 +470,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "trip-link/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Trip Link";
@@ -468,7 +481,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,7 +507,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "trip-link/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Trip Link";
@@ -504,7 +518,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

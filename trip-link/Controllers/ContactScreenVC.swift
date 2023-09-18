@@ -158,10 +158,8 @@ class ContactScreenVC: UIViewController {
 			formHasBeenChanged = !allFieldsUntouched
 			if let initialImageData = contact?.mutableProps.image,
 				 let currentImageData = imageView.image?.pngData(),
-				 currentImageData != initialImageData {
-				print(currentImageData)
-				print(initialImageData)
-				print(currentImageData == initialImageData)
+				 currentImageData != initialImageData
+			{
 				formHasBeenChanged = true
 			}
 		}

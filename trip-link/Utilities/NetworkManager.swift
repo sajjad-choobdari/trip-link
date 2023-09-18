@@ -70,9 +70,9 @@ enum APIError: Error {
 class NetworkManager {
 
 	let session: URLSession
-	let apiKey: String?
+	let apiKey: String
 
-	init(session: URLSession? = URLSession.shared, apiKey: String? = nil) {
+	init(session: URLSession? = URLSession.shared, apiKey: String) {
 		self.session = session ?? URLSession.shared
 		self.apiKey = apiKey
 	}
@@ -90,9 +90,7 @@ class NetworkManager {
 		}
 
 		var request = URLRequest(url: url)
-		if let apiKey = self.apiKey {
 			request.addValue(apiKey, forHTTPHeaderField: "API-Key")
-		}
 
 		if let headers = headers {
 			for (field, value) in headers {

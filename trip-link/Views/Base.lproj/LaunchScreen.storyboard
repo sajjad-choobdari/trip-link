@@ -30,7 +30,7 @@
                                         </constraints>
                                         <imageReference key="image" image="map" catalog="system" symbolScale="default" renderingMode="hierarchical-single">
                                             <hierarchicalColors>
-                                                <color systemColor="labelColor"/>
+                                                <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color systemColor="secondaryLabelColor"/>
                                                 <color systemColor="tertiaryLabelColor"/>
                                             </hierarchicalColors>
@@ -39,11 +39,12 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Link" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rj7-jM-Evb">
                                         <rect key="frame" x="25.666666666666664" y="160" width="104.66666666666669" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Eic-Qu-d8l">
                                         <rect key="frame" x="59.333333333333329" y="197.66666666666663" width="37" height="37"/>
-                                        <color key="color" systemColor="labelColor"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>
                             </stackView>
@@ -66,9 +67,6 @@
         <namedColor name="AccentColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
