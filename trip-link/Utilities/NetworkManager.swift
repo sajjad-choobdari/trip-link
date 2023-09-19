@@ -142,6 +142,7 @@ class NetworkManager {
 						completion(.success(decodedObject))
 					}
 				} catch {
+					print("deconding error:", error)
 					DispatchQueue.main.async {
 						completion(.failure(.decodingError))
 					}

@@ -19,24 +19,21 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 	@IBOutlet weak var currentLocationIndicatorView: UIView!
 
 		// Variables
-	private var apiKey = "service.dacdc7fa09f24697a84c58665958dcd0"
-	lazy var networkManager = NetworkManager(apiKey: apiKey)
-	var mapView: NTMapView?
-	var destinationMarkerLayer: NTVectorElementLayer?
-	var currentLocationMarkerLayer: NTVectorElementLayer?
+	private var mapView: NTMapView?
+	private var destinationMarkerLayer: NTVectorElementLayer?
+	private var currentLocationMarkerLayer: NTVectorElementLayer?
 
 	private let BASE_MAP_LAYER_INDEX: Int32 = 0
 	private let UPDATE_INTERVAL_IN_MILISECONDS = 1000
 	private let FASTEST_UPDATE_INTERVAL_IN_MILISECONDS = 1000
 
-	var userLocation: CLLocation!
-	var locationManager: CLLocationManager!
+	private var userLocation: CLLocation!
+	private var locationManager: CLLocationManager!
 
-	let lastUpdateTime = NSString()
-	let mRequestingLocationUpdates = Bool()
+	private let lastUpdateTime = NSString()
+	private let mRequestingLocationUpdates = Bool()
 
 	func didRequestBack() {
-		print("test")
 		self.navigationController?.popViewController(animated: true)
 	}
 
@@ -90,41 +87,41 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 	}
 
 	// Methods
-	func zoomIn() {
+	private func zoomIn() {
 		guard let map = self.mapView else {
 			return
 		}
 		map.setZoom(map.getZoom() + 1.0, durationSeconds: 0.5)
 	}
-	func zoomOut() {
+	private func zoomOut() {
 		guard let map = self.mapView else {
 			return
 		}
 		map.setZoom(map.getZoom() - 1.0, durationSeconds: 0.5)
 	}
 
-	func initLocation() {
+	private func initLocation() {
 		locationManager = CLLocationManager()
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.requestWhenInUseAuthorization()
 	}
 
-	func startLocationUpdates() {
+	private func startLocationUpdates() {
 		locationManager.startUpdatingLocation()
 	}
 
-	func stopLocationUpdates() {
+	private func stopLocationUpdates() {
 		locationManager.stopUpdatingLocation()
 	}
 
 
-	func focusOnLocation(pos: NTLngLat, map: NTMapView) {
+	private func focusOnLocation(pos: NTLngLat, map: NTMapView) {
 		map.setFocalPointPosition(pos, durationSeconds: 0.5)
 		map.setZoom(15, durationSeconds: 0.5)
 	}
 
-	func focusOnCurrentLocation() {
+	private func focusOnCurrentLocation() {
 		guard let map = self.mapView else {
 			return
 		}
@@ -137,7 +134,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		focusOnLocation(pos: pos, map: map)
 	}
 
-	func updateCurrentLocationMarker() {
+	private func updateCurrentLocationMarker() {
 		guard let userLocation = self.userLocation else {
 			return
 		}
@@ -147,7 +144,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		addCurrentLocationMarker(at: pos)
 	}
 
-	func createImage(from view: UIView, completion: @escaping (UIImage?) -> ()) {
+	private func createImage(from view: UIView, completion: @escaping (UIImage?) -> ()) {
 		DispatchQueue.main.async {
 			UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
 			if let context = UIGraphicsGetCurrentContext() {
@@ -160,7 +157,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 	}
 
 
-	func addCurrentLocationMarker(at position: NTLngLat) {
+	private func addCurrentLocationMarker(at position: NTLngLat) {
 		createImage(from: currentLocationIndicatorView) { image in
 			guard let markerImage = image else {
 					return
@@ -186,7 +183,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		}
 	}
 
-	func setupMarkerAndAddToMap(at position: NTLngLat, on layer: NTVectorElementLayer?) {
+	private func setupMarkerAndAddToMap(at position: NTLngLat, on layer: NTVectorElementLayer?) {
 		let markerImage = NTBitmapUtils.createBitmap(from: UIImage(systemName: "mappin"))
 		let markerStyleCreator = NTMarkerStyleCreator()
 		let animationStyle = NTAnimationStyle()
@@ -218,7 +215,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		markerLayer.setVectorElementEventListener(vectorElementEventListener)
 	}
 
-	func initMap() -> NTMapView? {
+	private func initMap() -> NTMapView? {
 		mapView = NTMapView()
 		guard let map = self.mapView else {
 			return nil
@@ -248,7 +245,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		return map
 	}
 
-	func setupMapEvents(on map: NTMapView) {
+	private func setupMapEvents(on map: NTMapView) {
 
 		guard let mapEventListener = MapEventListener() else {
 			return
@@ -276,11 +273,9 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 			guard let destinationNC = segue.destination as? UINavigationController else {
 				return
 			}
-
 			guard let destinationVC = destinationNC.viewControllers.first as? TripDetailsScreenVC else {
 				return
 			}
-			print(type(of: destinationVC.tripMapScreenDelegate))
 			destinationVC.tripMapScreenDelegate = self
 		}
 	}
