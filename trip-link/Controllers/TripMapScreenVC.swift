@@ -17,6 +17,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 	// Outlets
 	@IBOutlet weak var mapContainer: UIView!
 	@IBOutlet weak var currentLocationIndicatorView: UIView!
+	@IBOutlet weak var destinationPinImageView: UIImageView!
 
 		// Variables
 	private var mapView: NTMapView?
@@ -245,6 +246,28 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		return map
 	}
 
+	private func startDestinationPinAnimation() {
+		let duration: TimeInterval = 0.25
+		let scaleFactor: CGFloat = 1.2
+		let moveDistance: CGFloat = -8
+
+			// Apply transformations
+		UIView.animate(withDuration: duration) {
+			self.destinationPinImageView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+
+			self.destinationPinImageView.transform = self.destinationPinImageView.transform.translatedBy(x: 0, y: moveDistance)
+		}
+	}
+
+	private func resetDestinationPinAnimation() {
+		let duration: TimeInterval = 0.25
+
+		UIView.animate(withDuration: duration) {
+				// Reset transformations
+			self.destinationPinImageView.transform = CGAffineTransform.identity
+		}
+	}
+
 	private func setupMapEvents(on map: NTMapView) {
 
 		guard let mapEventListener = MapEventListener() else {
@@ -264,6 +287,17 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 			}
 		}
 
+		mapEventListener.onMapMovedBlock = {
+			print("reset is on move")
+			self.startDestinationPinAnimation()
+		}
+		mapEventListener.onMapStableBlock = {
+			print("map is stable")
+			self.resetDestinationPinAnimation()
+		}
+		mapEventListener.onMapIdleBlock = {
+			print("map is idle")
+		}
 		map.setMapEventListener(mapEventListener)
 	}
 

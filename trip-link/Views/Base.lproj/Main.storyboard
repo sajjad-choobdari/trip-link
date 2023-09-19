@@ -411,7 +411,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMn-u9-8qo">
-                                                <rect key="frame" x="15.333333333333334" y="8" width="31.333333333333321" height="17"/>
+                                                <rect key="frame" x="15.333333333333334" y="8" width="31.333333333333329" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" systemColor="tertiaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
@@ -594,16 +594,10 @@
                                 <rect key="frame" x="0.0" y="103" width="430" height="746"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98h-dv-xMV">
-                                <rect key="frame" x="171" y="421" width="88" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9dL-N0-fCK">
-                                <rect key="frame" x="197" y="448" width="36" height="36"/>
+                                <rect key="frame" x="197" y="430" width="36" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <imageReference key="image" image="pin.fill" catalog="system" symbolScale="small"/>
+                                <imageReference key="image" image="mappin" catalog="system" symbolScale="small"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cb9-jY-A4Y">
                                 <rect key="frame" x="358" y="777" width="48" height="48"/>
@@ -671,11 +665,8 @@
                             <constraint firstItem="cHa-ma-0Om" firstAttribute="centerX" secondItem="G8I-t7-TNb" secondAttribute="centerX" id="9Id-mZ-Sh7"/>
                             <constraint firstItem="G8I-t7-TNb" firstAttribute="centerX" secondItem="TYT-Cn-v9B" secondAttribute="centerX" id="AP1-6f-sES"/>
                             <constraint firstItem="HTr-qj-fQZ" firstAttribute="bottom" secondItem="cb9-jY-A4Y" secondAttribute="bottom" constant="24" id="ENn-id-Qxl"/>
-                            <constraint firstItem="9dL-N0-fCK" firstAttribute="top" secondItem="98h-dv-xMV" secondAttribute="bottom" constant="4" id="LIX-xm-ion"/>
                             <constraint firstItem="cHa-ma-0Om" firstAttribute="width" secondItem="G8I-t7-TNb" secondAttribute="width" multiplier="0.5" id="Pi7-C7-lsl"/>
-                            <constraint firstItem="98h-dv-xMV" firstAttribute="centerX" secondItem="9dL-N0-fCK" secondAttribute="centerX" id="RK0-IR-x7q"/>
                             <constraint firstItem="HTr-qj-fQZ" firstAttribute="trailing" secondItem="G8I-t7-TNb" secondAttribute="trailing" id="WUp-nB-RGs"/>
-                            <constraint firstItem="98h-dv-xMV" firstAttribute="leading" secondItem="HTr-qj-fQZ" secondAttribute="leading" constant="171" id="ZD4-Ox-AJb"/>
                             <constraint firstItem="cb9-jY-A4Y" firstAttribute="top" secondItem="G8I-t7-TNb" secondAttribute="bottom" constant="-72" id="ZIk-1n-98w"/>
                             <constraint firstItem="HTr-qj-fQZ" firstAttribute="trailing" secondItem="cb9-jY-A4Y" secondAttribute="trailing" constant="24" id="c82-Dy-sNw"/>
                             <constraint firstItem="HTr-qj-fQZ" firstAttribute="bottom" secondItem="G8I-t7-TNb" secondAttribute="bottom" id="fVw-Mw-ibe"/>
@@ -695,6 +686,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentLocationIndicatorView" destination="YFR-jx-EbB" id="5w7-Kx-5gf"/>
+                        <outlet property="destinationPinImageView" destination="9dL-N0-fCK" id="HUS-hB-u73"/>
                         <outlet property="mapContainer" destination="G8I-t7-TNb" id="gCa-xr-9y1"/>
                     </connections>
                 </viewController>
@@ -919,9 +911,9 @@
         <image name="gear" catalog="system" width="128" height="122"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <image name="map" catalog="system" width="128" height="112"/>
+        <image name="mappin" catalog="system" width="106" height="128"/>
         <image name="person.2" catalog="system" width="128" height="82"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
-        <image name="pin.fill" catalog="system" width="116" height="128"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
