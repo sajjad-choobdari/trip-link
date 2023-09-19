@@ -13,13 +13,14 @@ protocol TripMapScreenDelegate: AnyObject {
 	func didRequestBack()
 }
 
-class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
-	// Outlets
-	@IBOutlet weak var mapContainer: UIView!
-	@IBOutlet weak var currentLocationIndicatorView: UIView!
-	@IBOutlet weak var destinationPinImageView: UIImageView!
+class TripMapScreenVC: UIViewController {
 
-		// Variables
+	// Outlets
+	@IBOutlet private weak var mapContainer: UIView!
+	@IBOutlet private weak var currentLocationIndicatorView: UIView!
+	@IBOutlet private weak var destinationPinImageView: UIImageView!
+
+	// Variables
 	private var mapView: NTMapView?
 	private var destinationMarkerLayer: NTVectorElementLayer?
 	private var currentLocationMarkerLayer: NTVectorElementLayer?
@@ -33,10 +34,6 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 
 	private let lastUpdateTime = NSString()
 	private let mRequestingLocationUpdates = Bool()
-
-	func didRequestBack() {
-		self.navigationController?.popViewController(animated: true)
-	}
 
 	// Life Cycles
 	override func viewDidLoad() {
@@ -65,6 +62,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		stopLocationUpdates()
 	}
 
+	// on device theme change
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -76,14 +74,14 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		map.getLayers().set(BASE_MAP_LAYER_INDEX, layer: baseMap)
 	}
 
-	@IBAction func getCurrentLocationPressed(_ sender: UIButton) {
+	@IBAction private func getCurrentLocationPressed(_ sender: UIButton) {
 		focusOnCurrentLocation()
 	}
-	@IBAction func zoomInPressed(_ sender: UIButton) {
+	@IBAction private func zoomInPressed(_ sender: UIButton) {
 		zoomIn()
 	}
 
-	@IBAction func zoomOutPressed(_ sender: UIButton) {
+	@IBAction private func zoomOutPressed(_ sender: UIButton) {
 		zoomOut()
 	}
 
@@ -94,6 +92,7 @@ class TripMapScreenVC: UIViewController, TripMapScreenDelegate {
 		}
 		map.setZoom(map.getZoom() + 1.0, durationSeconds: 0.5)
 	}
+
 	private func zoomOut() {
 		guard let map = self.mapView else {
 			return
@@ -332,5 +331,11 @@ extension TripMapScreenVC: CLLocationManagerDelegate {
 		if (justGotInitialized) {
 			focusOnCurrentLocation()
 		}
+	}
+}
+
+extension TripMapScreenVC: TripMapScreenDelegate {
+	func didRequestBack() {
+		self.navigationController?.popViewController(animated: true)
 	}
 }

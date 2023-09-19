@@ -8,10 +8,10 @@
 import UIKit
 
 class TripDetailsScreenVC: UIViewController {
-	@IBOutlet weak var descriptionInput: NegativePaddedTextView!
-	@IBOutlet weak var originAddressInput: NegativePaddedTextView!
-	@IBOutlet weak var destinationAddressInput: NegativePaddedTextView!
-	@IBOutlet weak var titleInput: UITextField!
+	@IBOutlet private weak var descriptionInput: NegativePaddedTextView!
+	@IBOutlet private weak var originAddressInput: NegativePaddedTextView!
+	@IBOutlet private weak var destinationAddressInput: NegativePaddedTextView!
+	@IBOutlet private weak var titleInput: UITextField!
 
 	// Variables
 	private var apiKey = "service.dacdc7fa09f24697a84c58665958dcd0"
@@ -60,12 +60,12 @@ class TripDetailsScreenVC: UIViewController {
 	}
 
 	// Actions
-	@IBAction func onPressDone(_ sender: UIBarButtonItem) {
+	@IBAction private func onPressDone(_ sender: UIBarButtonItem) {
 		self.dismiss(animated: true, completion: nil)
 		tripMapScreenDelegate?.didRequestBack()
 	}
 
-	@IBAction func onPressCancel(_ sender: UIBarButtonItem) {
+	@IBAction private func onPressCancel(_ sender: UIBarButtonItem) {
 		self.dismiss(animated: true, completion: nil)
 	}
 }

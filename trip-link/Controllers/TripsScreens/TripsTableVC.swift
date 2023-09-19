@@ -9,23 +9,23 @@ import UIKit
 
 class TripsTableVC: UITableViewController {
 
-	private let tripCellReuseIdentifier = "TripCell"
-
 	// Variables
 	private let tripsModel = Trips()
+	private let TRIP_CELL_REUSE_IDENTIFIER = "TripCell"
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: tripCellReuseIdentifier)
+		self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: TRIP_CELL_REUSE_IDENTIFIER)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		tableView.reloadData()
+		self.tableView.reloadData()
 	}
 
 }
 
+// data source methods
 extension TripsTableVC {
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
@@ -35,9 +35,8 @@ extension TripsTableVC {
 		return tripsModel.getItems().count
 	}
 
-
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: tripCellReuseIdentifier, for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: TRIP_CELL_REUSE_IDENTIFIER, for: indexPath)
 		let tripItem = tripsModel.getItems()[indexPath.row]
 		cell.textLabel?.text = tripItem.title
 		return cell
@@ -52,6 +51,7 @@ extension TripsTableVC {
 	}
 }
 
+// delegate methods
 extension TripsTableVC {
 //
 }

@@ -69,8 +69,8 @@ enum APIError: Error {
 
 class NetworkManager {
 
-	let session: URLSession
-	let apiKey: String
+	private let session: URLSession
+	private let apiKey: String
 
 	init(session: URLSession? = URLSession.shared, apiKey: String) {
 		self.session = session ?? URLSession.shared
@@ -90,7 +90,7 @@ class NetworkManager {
 		}
 
 		var request = URLRequest(url: url)
-			request.addValue(apiKey, forHTTPHeaderField: "API-Key")
+		request.addValue(self.apiKey, forHTTPHeaderField: "API-Key")
 
 		if let headers = headers {
 			for (field, value) in headers {
@@ -98,7 +98,7 @@ class NetworkManager {
 			}
 		}
 
-		let task = session.dataTask(with: request) { (data, response, error) in
+		let task = self.session.dataTask(with: request) { (data, response, error) in
 
 			if error != nil {
 				DispatchQueue.main.async {
