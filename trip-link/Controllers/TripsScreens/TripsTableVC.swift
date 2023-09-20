@@ -15,7 +15,8 @@ class TripsTableVC: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: TRIP_CELL_REUSE_IDENTIFIER)
+		let nib = UINib(nibName: String(describing: TripTableViewCell.self), bundle: nil)
+		self.tableView.register(nib, forCellReuseIdentifier: TRIP_CELL_REUSE_IDENTIFIER)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -36,9 +37,14 @@ extension TripsTableVC {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: TRIP_CELL_REUSE_IDENTIFIER, for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: TRIP_CELL_REUSE_IDENTIFIER, for: indexPath) as! TripTableViewCell
 		let tripItem = tripsModel.getItems()[indexPath.row]
-		cell.textLabel?.text = tripItem.title
+		
+		cell.titleLabel.text = tripItem.title
+		cell.descriptionLabel.text = tripItem.description
+		cell.originAddressLabel.text = tripItem.origin.title
+		cell.destinationAddressLabel.text = tripItem.destination.title
+
 		return cell
 	}
 
