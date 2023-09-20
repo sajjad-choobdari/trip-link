@@ -8,8 +8,7 @@
 import UIKit
 
 class TripsTableVC: UITableViewController {
-
-	// Variables
+		// Variables
 	private let tripsModel = Trips()
 	private let TRIP_CELL_REUSE_IDENTIFIER = "TripCell"
 
@@ -23,10 +22,8 @@ class TripsTableVC: UITableViewController {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
 	}
-
 }
 
-// data source methods
 extension TripsTableVC {
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
@@ -55,9 +52,18 @@ extension TripsTableVC {
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
 		return .none
 	}
-}
 
-// delegate methods
-extension TripsTableVC {
-//
+	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let item = tripsModel.getItems()[indexPath.row]
+		print("item:", item.id)
+		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+			self.tripsModel.deleteTripByUUID(id: item.id) {
+				tableView.deleteRows(at: [indexPath], with: .automatic)
+			}
+			completionHandler(true)
+		}
+		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+		return configuration
+	}
+
 }
