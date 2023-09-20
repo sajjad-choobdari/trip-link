@@ -55,7 +55,7 @@ extension TripsTableVC {
 
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		let item = tripsModel.getItems()[indexPath.row]
-		print("item:", item.id)
+
 		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
 			self.tripsModel.deleteTripByUUID(id: item.id) {
 				tableView.deleteRows(at: [indexPath], with: .automatic)

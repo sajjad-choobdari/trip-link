@@ -24,7 +24,9 @@ class TripDetailsScreenVC: UIViewController {
 	@IBOutlet weak var destinationAddressLoadingIndicator: UIActivityIndicatorView!
 	@IBOutlet private weak var titleInput: UITextField!
 
-	// Variables
+	@IBOutlet weak var doneButton: UIBarButtonItem!
+
+		// Variables
 	private var apiKey = "service.dacdc7fa09f24697a84c58665958dcd0"
 	private lazy var networkManager = NetworkManager(apiKey: apiKey)
 	weak var tripMapScreenDelegate: TripMapScreenDelegate?
@@ -36,6 +38,9 @@ class TripDetailsScreenVC: UIViewController {
 		super.viewDidLoad()
 
 		// Do any additional setup after loading the view.
+		titleInput.becomeFirstResponder()
+		doneButton.isEnabled = false
+
 		guard let data = self.data else {
 			return
 		}
@@ -44,9 +49,11 @@ class TripDetailsScreenVC: UIViewController {
 		fetchAddressOf(
 			location: data.origin,
 			completion: { originAddress in
-				print("address:", originAddress)
 				self.originAddressInput.text = originAddress.details
 				self.originAddressLoadingIndicator.stopAnimating()
+				if (!self.destinationAddressLoadingIndicator.isAnimating) {
+					self.doneButton.isEnabled = true
+				}
 			}
 		)
 
@@ -54,9 +61,11 @@ class TripDetailsScreenVC: UIViewController {
 		fetchAddressOf(
 			location: data.destination,
 			completion: { destinationAddress in
-				print("address:", destinationAddress)
 				self.destinationAddressInput.text = destinationAddress.details
 				self.destinationAddressLoadingIndicator.stopAnimating()
+				if (!self.originAddressLoadingIndicator.isAnimating) {
+					self.doneButton.isEnabled = true
+				}
 			}
 		)
 	}

@@ -884,6 +884,7 @@
                         <outlet property="descriptionInput" destination="sZr-sz-6yF" id="yr1-B5-uAN"/>
                         <outlet property="destinationAddressInput" destination="gqc-Yh-6Es" id="nrl-k8-7Yq"/>
                         <outlet property="destinationAddressLoadingIndicator" destination="bpE-ol-Zeu" id="2dq-G1-Duz"/>
+                        <outlet property="doneButton" destination="4Y3-dr-j4g" id="eSt-L4-643"/>
                         <outlet property="originAddressInput" destination="DuA-Gp-KhO" id="1Qc-xJ-Q0D"/>
                         <outlet property="originAddressLoadingIndicator" destination="pmt-rR-Fab" id="E4r-lL-Hy7"/>
                         <outlet property="titleInput" destination="cks-Ev-7OF" id="rFL-QD-bsb"/>
