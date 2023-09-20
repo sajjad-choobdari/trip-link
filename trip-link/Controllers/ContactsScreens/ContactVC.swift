@@ -16,26 +16,28 @@ enum ContactViewMode {
 
 class ContactScreenVC: UIViewController {
 		// Outlets
-	@IBOutlet weak var firstNameTextField: UITextField!
-	@IBOutlet weak var lastNameTextField: UITextField!
-	@IBOutlet weak var phoneTextField: UITextField!
-	@IBOutlet weak var emailTextField: UITextField!
-	@IBOutlet weak var noteTextField: NegativePaddedTextView!
-	@IBOutlet weak var addPhotoButtonView: UIButton!
-	@IBOutlet weak var imageView: UIImageView!
-	@IBOutlet weak var deleteContactButton: UIButton!
+	@IBOutlet private weak var firstNameTextField: UITextField!
+	@IBOutlet private weak var lastNameTextField: UITextField!
+	@IBOutlet private weak var phoneTextField: UITextField!
+	@IBOutlet private weak var emailTextField: UITextField!
+	@IBOutlet private weak var noteTextField: NegativePaddedTextView!
+	@IBOutlet private weak var addPhotoButtonView: UIButton!
+	@IBOutlet private weak var imageView: UIImageView!
+	@IBOutlet private weak var deleteContactButton: UIButton!
 
 		// Variables
-	var contactsModel = Contacts()
+	private var contactsModel = Contacts()
 	var contactViewMode: ContactViewMode = .view
-	var cancelButton: UIBarButtonItem!
-	var doneButton: UIBarButtonItem!
-	var editButton: UIBarButtonItem!
+	private var cancelButton: UIBarButtonItem!
+	private var doneButton: UIBarButtonItem!
+	private var editButton: UIBarButtonItem!
 	var contact: Contact?
-	var formHasBeenChanged: Bool = false
+	private var formHasBeenChanged: Bool = false
 
 		// Life Cycles
 	override func viewDidLoad() {
+		super.viewDidLoad()
+
 		if contactViewMode == .view {
 			firstNameTextField.text = contact?.mutableProps.givenName
 			lastNameTextField.text = contact?.mutableProps.familyName
@@ -46,7 +48,6 @@ class ContactScreenVC: UIViewController {
 				imageView.image = UIImage(data: imageData)
 			}
 		}
-		super.viewDidLoad()
 
 		cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(onPressCancel))
 		doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(onPressDone))
@@ -68,23 +69,23 @@ class ContactScreenVC: UIViewController {
 	}
 
 		// Methods
-	func updateActionButtons(for mode: ContactViewMode) {
+	private func updateActionButtons(for mode: ContactViewMode) {
 		switch mode {
 			case .add:
-				navigationItem.leftBarButtonItems = [cancelButton]
-				navigationItem.rightBarButtonItems = [doneButton]
+				self.navigationItem.leftBarButtonItems = [cancelButton]
+				self.navigationItem.rightBarButtonItems = [doneButton]
 				deleteContactButton.isHidden = true
 				addPhotoButtonView.isHidden = false
 				break
 			case .view:
-				navigationItem.leftBarButtonItems = []
-				navigationItem.rightBarButtonItems = [editButton]
+				self.navigationItem.leftBarButtonItems = []
+				self.navigationItem.rightBarButtonItems = [editButton]
 				deleteContactButton.isHidden = true
 				addPhotoButtonView.isHidden = true
 				break
 			case .edit:
-				navigationItem.leftBarButtonItems = [cancelButton]
-				navigationItem.rightBarButtonItems = [doneButton]
+				self.navigationItem.leftBarButtonItems = [cancelButton]
+				self.navigationItem.rightBarButtonItems = [doneButton]
 				deleteContactButton.isHidden = false
 				addPhotoButtonView.isHidden = false
 				if contact?.mutableProps.image != nil {
@@ -93,7 +94,8 @@ class ContactScreenVC: UIViewController {
 				break
 		}
 	}
-	func updateFieldsMode(for mode: ContactViewMode) {
+
+	private func updateFieldsMode(for mode: ContactViewMode) {
 		let fields: [UITextField] = [firstNameTextField, lastNameTextField, phoneTextField, emailTextField]
 
 		switch mode {
@@ -112,13 +114,13 @@ class ContactScreenVC: UIViewController {
 		}
 	}
 
-	func navigateBack() {
+	private func navigateBack() {
 		if let navigationController = self.navigationController {
 			navigationController.popViewController(animated: true)
 		}
 	}
 
-	func hasPickedAnImage() -> Bool {
+	private func hasPickedAnImage() -> Bool {
 		if let image = imageView.image {
 			if !image.isSymbolImage {
 				// The UIImageView has a non-nil image that is not a system symbol.
@@ -129,15 +131,15 @@ class ContactScreenVC: UIViewController {
 		return false
 	}
 
-	func presentImagePicker() {
+	private func presentImagePicker() {
 		let imagePicker = UIImagePickerController()
 		imagePicker.delegate = self
 		imagePicker.sourceType = .photoLibrary
 		imagePicker.mediaTypes = [UTType.image.identifier]
-		present(imagePicker, animated: true, completion: nil)
+		self.present(imagePicker, animated: true, completion: nil)
 	}
 
-	func updateFormHasBeenChangedState() {
+	private func updateFormHasBeenChangedState() {
 		let textFields: [String?] = [firstNameTextField?.text, lastNameTextField?.text, phoneTextField?.text, emailTextField?.text, noteTextField?.text]
 		let contactValues: [String?] = [contact?.mutableProps.givenName, contact?.mutableProps.familyName, contact?.mutableProps.phoneNumber, contact?.mutableProps.emailAddress, contact?.mutableProps.note]
 
@@ -158,17 +160,15 @@ class ContactScreenVC: UIViewController {
 			formHasBeenChanged = !allFieldsUntouched
 			if let initialImageData = contact?.mutableProps.image,
 				 let currentImageData = imageView.image?.pngData(),
-				 currentImageData != initialImageData {
-				print(currentImageData)
-				print(initialImageData)
-				print(currentImageData == initialImageData)
+				 currentImageData != initialImageData
+			{
 				formHasBeenChanged = true
 			}
 		}
 		doneButton.isEnabled = formHasBeenChanged
 	}
 
-	func showDiscardChangesAlert(completion: @escaping (UIAlertAction) -> Void) {
+	private func showDiscardChangesAlert(completion: @escaping (UIAlertAction) -> Void) {
 		AlertUtility.showActionSheet(
 			on: self, title: "", message: "Are you sure you want to discard your changes?",
 			confirmActionTitle: "Discard Changes", confirmActionStyle: .destructive, confirmHandler: completion,
@@ -176,7 +176,7 @@ class ContactScreenVC: UIViewController {
 		)
 	}
 
-	func handleAddingNewContact() {
+	private func handleAddingNewContact() {
 		guard let image = imageView.image else {
 			return
 		}
@@ -191,15 +191,15 @@ class ContactScreenVC: UIViewController {
 			note: noteTextField.text,
 			image: imageData
 		) { addedContact in
-			contact = addedContact
+			self.contact = addedContact
 			self.contactViewMode = .view
-			updateFieldsMode(for: .view)
-			updateActionButtons(for: .view)
-			updateFormHasBeenChangedState()
+			self.updateFieldsMode(for: .view)
+			self.updateActionButtons(for: .view)
+			self.updateFormHasBeenChangedState()
 		}
 	}
 
-	func discardEditingChanges() {
+	private func discardEditingChanges() {
 		firstNameTextField.text = contact?.mutableProps.givenName
 		lastNameTextField.text = contact?.mutableProps.familyName
 		phoneTextField.text = contact?.mutableProps.phoneNumber
@@ -214,8 +214,23 @@ class ContactScreenVC: UIViewController {
 		updateFieldsMode(for: .view)
 	}
 
+	private func confirmDeleteContactPressed(_: UIAlertAction) {
+		if let id = self.contact?.immutableProps.id {
+			self.contactsModel.deleteContactByUUID(id: id)
+			self.navigateBack()
+		}
+	}
+
+	private func showDeleteContactAlert() {
+		AlertUtility.showActionSheet(
+			on: self, title: "", message: "",
+			confirmActionTitle: "Delete Contact", confirmActionStyle: .destructive, confirmHandler: confirmDeleteContactPressed,
+			cancelActionTitle: "Cancel", cancelActionStyle: .cancel, cancelHandler: nil
+		)
+	}
+
 	// Actions
-	@objc func onPressEdit() {
+	@objc private func onPressEdit() {
 		if (contactViewMode == .view) {
 			contactViewMode = .edit
 			updateActionButtons(for: .edit)
@@ -224,7 +239,7 @@ class ContactScreenVC: UIViewController {
 		}
 	}
 
-	@objc func onPressDone() {
+	@objc private func onPressDone() {
 		if (contactViewMode == .edit) {
 			// save changes and update model and view and get back to view mode
 			if let contactIdToModify = contact?.immutableProps.id {
@@ -237,11 +252,11 @@ class ContactScreenVC: UIViewController {
 					image: imageView.image?.pngData()
 				)
 				contactsModel.updateContactByUUID(id: contactIdToModify, modifiedData: modifiedContact.mutableProps) {
-					contact?.mutableProps = modifiedContact.mutableProps
+					self.contact?.mutableProps = modifiedContact.mutableProps
 					self.contactViewMode = .view
-					updateActionButtons(for: .view)
-					updateFieldsMode(for: .view)
-					updateFormHasBeenChangedState()
+					self.updateActionButtons(for: .view)
+					self.updateFieldsMode(for: .view)
+					self.updateFormHasBeenChangedState()
 				}
 			}
 		} else if (contactViewMode == .add) {
@@ -249,7 +264,7 @@ class ContactScreenVC: UIViewController {
 		}
 	}
 
-	@objc func onPressCancel() {
+	@objc private func onPressCancel() {
 		if (contactViewMode == .edit) {
 			if (formHasBeenChanged) {
 				showDiscardChangesAlert { _ in
@@ -269,29 +284,12 @@ class ContactScreenVC: UIViewController {
 		}
 	}
 
-
 	@IBAction func onPressAddPhoto(_ sender: UIButton) {
-		presentImagePicker()
-	}
-
-
-	func confirmDeleteContactPressed(_: UIAlertAction) {
-		if let id = self.contact?.immutableProps.id {
-			self.contactsModel.deleteContactByUUID(id: id)
-			self.navigateBack()
-		}
-	}
-
-	func showDeleteContactAlert() {
-		AlertUtility.showActionSheet(
-			on: self, title: "", message: "",
-			confirmActionTitle: "Delete Contact", confirmActionStyle: .destructive, confirmHandler: confirmDeleteContactPressed,
-			cancelActionTitle: "Cancel", cancelActionStyle: .cancel, cancelHandler: nil
-		)
+		self.presentImagePicker()
 	}
 
 	@IBAction func onPressDeleteContact(_ sender: UIButton) {
-		showDeleteContactAlert()
+		self.showDeleteContactAlert()
 	}
 }
 

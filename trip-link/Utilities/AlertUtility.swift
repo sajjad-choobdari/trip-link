@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 struct AlertUtility {
+	private init() {}
+
 	static func showActionSheet(
 		on viewController: UIViewController,
 		title: String, message: String,

@@ -12,7 +12,7 @@ protocol CommandHandler {
 
 class LoadDeviceContactsHandler: CommandHandler {
 	weak var controller: UIViewController?
-	let contactsModel = Contacts()
+	private let contactsModel = Contacts()
 
 	func perform(on cell: UITableViewCell) {
 		guard PermissionsManager.hasContactsAccess() else {
@@ -32,7 +32,7 @@ class LoadDeviceContactsHandler: CommandHandler {
 
 class DeleteAllContactsHandler: CommandHandler {
 	weak var controller: UIViewController?
-	let contactsModel = Contacts()
+	private let contactsModel = Contacts()
 
 	func perform(on cell: UITableViewCell) {
 		if let controller = self.controller {
@@ -53,9 +53,9 @@ class DeleteAllContactsHandler: CommandHandler {
 }
 
 class AppSettingsTableVC: UITableViewController {
-	@IBOutlet weak var loadDeviceContactsRow: UITableViewCell!
+	@IBOutlet private weak var loadDeviceContactsRow: UITableViewCell!
 
-	lazy var cellClickHandlers: [String: CommandHandler] = {
+	private lazy var cellClickHandlers: [String: CommandHandler] = {
 		let loadHandler = LoadDeviceContactsHandler()
 		loadHandler.controller = self
 		let deleteHandler = DeleteAllContactsHandler()

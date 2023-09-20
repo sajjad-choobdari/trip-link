@@ -17,21 +17,8 @@ class ContactsTableViewCell: UITableViewCell {
 		super.layoutSubviews()
 
 		if let imageView = self.imageView {
-			self.makeImageViewCircular(imageView)
+			imageView.resize(size: 40.0)
+			imageView.makeRound()
 		}
-	}
-
-	private func makeImageViewCircular(_ imageView: UIImageView) {
-		imageView.makeCircular(size: 40.0)
-	}
-}
-
-extension UIImageView {
-	func makeCircular(size: CGFloat) {
-		let imageSize = CGSize(width: size, height: size)
-		self.frame = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
-		self.contentMode = .scaleAspectFill
-		self.clipsToBounds = true
-		self.layer.cornerRadius = self.frame.size.height / 2
 	}
 }

@@ -9,9 +9,7 @@ import Foundation
 import Contacts
 
 class PermissionsManager {
-	init() {
-		//
-	}
+	private init() {}
 
 	static func hasContactsAccess() -> Bool {
 		let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
