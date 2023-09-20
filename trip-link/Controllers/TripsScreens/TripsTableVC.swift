@@ -42,8 +42,8 @@ extension TripsTableVC {
 		
 		cell.titleLabel.text = tripItem.title
 		cell.descriptionLabel.text = tripItem.description
-		cell.originAddressLabel.text = tripItem.origin.title
-		cell.destinationAddressLabel.text = tripItem.destination.title
+		cell.originAddressLabel.text = tripItem.origin.details
+		cell.destinationAddressLabel.text = tripItem.destination.details
 
 		return cell
 	}

@@ -35,6 +35,11 @@ class TripMapScreenVC: UIViewController {
 	private let lastUpdateTime = NSString()
 	private let mRequestingLocationUpdates = Bool()
 
+	private var origin: NTLngLat?
+	private var destination: NTLngLat?
+
+	private var delegate: TripDetailsScreenVC?
+
 	// Life Cycles
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -141,6 +146,7 @@ class TripMapScreenVC: UIViewController {
 		guard let pos = NTLngLat(x: userLocation.coordinate.longitude, y: userLocation.coordinate.latitude) else {
 			return
 		}
+		self.origin = pos
 		addCurrentLocationMarker(at: pos)
 	}
 
@@ -278,24 +284,20 @@ class TripMapScreenVC: UIViewController {
 //				if let clickedLocation = clickInfo.getClickPos() {
 //					self.setupMarkerAndAddToMap(at: clickedLocation, on: self.destinationMarkerLayer)
 //				}
-
 			} else if clickInfo.getClickType() == NTClickType.CLICK_TYPE_DOUBLE {
 				self.zoomIn()
 			} else if clickInfo.getClickType() == NTClickType.CLICK_TYPE_LONG {
 				self.zoomOut()
 			}
 		}
-
 		mapEventListener.onMapMovedBlock = {
-			print("reset is on move")
 			self.startDestinationPinAnimation()
 		}
 		mapEventListener.onMapStableBlock = {
-			print("map is stable")
+			if let focalPoint = map.getFocalPointPosition(), let destPosition = NTLngLat(x: focalPoint.getX(), y: focalPoint.getY()) {
+				self.destination = destPosition
+			}
 			self.resetDestinationPinAnimation()
-		}
-		mapEventListener.onMapIdleBlock = {
-			print("map is idle")
 		}
 		map.setMapEventListener(mapEventListener)
 	}
@@ -309,6 +311,12 @@ class TripMapScreenVC: UIViewController {
 			guard let destinationVC = destinationNC.viewControllers.first as? TripDetailsScreenVC else {
 				return
 			}
+			self.delegate = destinationVC
+			guard let origin = self.origin, let destination = self.destination else {
+				return
+			}
+			let pathData: PathData = (origin, destination)
+			delegate?.passData(pathData)
 			destinationVC.tripMapScreenDelegate = self
 		}
 	}

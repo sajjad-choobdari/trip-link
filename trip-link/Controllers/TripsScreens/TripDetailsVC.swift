@@ -7,30 +7,58 @@
 
 import UIKit
 
+typealias PathData = (
+	origin: NTLngLat,
+	destination: NTLngLat
+)
+
+protocol TripMapScreenVCDelegate: AnyObject {
+	func passData(_ data: PathData)
+}
+
 class TripDetailsScreenVC: UIViewController {
 	@IBOutlet private weak var descriptionInput: NegativePaddedTextView!
 	@IBOutlet private weak var originAddressInput: NegativePaddedTextView!
 	@IBOutlet private weak var destinationAddressInput: NegativePaddedTextView!
+	@IBOutlet weak var originAddressLoadingIndicator: UIActivityIndicatorView!
+	@IBOutlet weak var destinationAddressLoadingIndicator: UIActivityIndicatorView!
 	@IBOutlet private weak var titleInput: UITextField!
 
 	// Variables
 	private var apiKey = "service.dacdc7fa09f24697a84c58665958dcd0"
 	private lazy var networkManager = NetworkManager(apiKey: apiKey)
 	weak var tripMapScreenDelegate: TripMapScreenDelegate?
+	private var data: PathData?
+	private let tripsModel = Trips()
 
 	// Life Cycles
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view.
 
-//		if let loc = NTLngLat(x: userLocation.coordinate.longitude, y: userLocation.coordinate.latitude) {
-//			fetchAddressOf(
-//				location: loc,
-//				completion: { address in
-//					print("address:", address)
-//				}
-//			)
-//		}
+		// Do any additional setup after loading the view.
+		guard let data = self.data else {
+			return
+		}
+
+		originAddressLoadingIndicator.startAnimating()
+		fetchAddressOf(
+			location: data.origin,
+			completion: { originAddress in
+				print("address:", originAddress)
+				self.originAddressInput.text = originAddress.details
+				self.originAddressLoadingIndicator.stopAnimating()
+			}
+		)
+
+		destinationAddressLoadingIndicator.startAnimating()
+		fetchAddressOf(
+			location: data.destination,
+			completion: { destinationAddress in
+				print("address:", destinationAddress)
+				self.destinationAddressInput.text = destinationAddress.details
+				self.destinationAddressLoadingIndicator.stopAnimating()
+			}
+		)
 	}
 
 
@@ -61,11 +89,36 @@ class TripDetailsScreenVC: UIViewController {
 
 	// Actions
 	@IBAction private func onPressDone(_ sender: UIBarButtonItem) {
+		guard let data = self.data else {
+			return
+		}
+		let origin = Address(
+			details: originAddressInput.text,
+			lat: data.origin.getY(),
+			lng: data.origin.getX()
+		)
+		let destination = Address(
+			details: destinationAddressInput.text,
+			lat: data.destination.getY(),
+			lng: data.destination.getX()
+		)
+		tripsModel.addNewTrip(
+			title: titleInput.text ?? "",
+			description: descriptionInput.text ?? "",
+			origin: origin,
+			destination: destination
+		)
 		self.dismiss(animated: true, completion: nil)
 		tripMapScreenDelegate?.didRequestBack()
 	}
 
 	@IBAction private func onPressCancel(_ sender: UIBarButtonItem) {
 		self.dismiss(animated: true, completion: nil)
+	}
+}
+
+extension TripDetailsScreenVC: TripMapScreenVCDelegate {
+	func passData(_ data: PathData) {
+		self.data = data
 	}
 }

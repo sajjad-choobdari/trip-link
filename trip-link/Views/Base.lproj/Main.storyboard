@@ -792,12 +792,20 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Origin Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8w-8e-Get">
-                                                <rect key="frame" x="16" y="8" width="95.666666666666671" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="72y-aM-9Kk" userLabel="Origin Label Container">
+                                                <rect key="frame" x="16" y="8" width="119.66666666666669" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Origin Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8w-8e-Get">
+                                                        <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" systemColor="tertiaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pmt-rR-Fab">
+                                                        <rect key="frame" x="99.666666666666671" y="0.0" width="20" height="20"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
@@ -805,9 +813,6 @@
                                             <constraint firstAttribute="bottom" secondItem="DuA-Gp-KhO" secondAttribute="bottom" id="EAj-rA-Lsg"/>
                                             <constraint firstItem="DuA-Gp-KhO" firstAttribute="width" secondItem="xi1-Cn-3fM" secondAttribute="width" multiplier="0.925581" id="HsI-EV-fgq"/>
                                             <constraint firstAttribute="height" constant="120" id="JEF-9e-Gjk"/>
-                                            <constraint firstItem="d8w-8e-Get" firstAttribute="top" secondItem="xi1-Cn-3fM" secondAttribute="top" constant="8" id="NUL-t7-HD0"/>
-                                            <constraint firstItem="d8w-8e-Get" firstAttribute="leading" secondItem="DuA-Gp-KhO" secondAttribute="leading" id="aTe-mj-h8B"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d8w-8e-Get" secondAttribute="trailing" constant="20" symbolic="YES" id="cqW-Td-nCL"/>
                                             <constraint firstItem="DuA-Gp-KhO" firstAttribute="top" secondItem="xi1-Cn-3fM" secondAttribute="top" constant="24" id="fOX-sd-ocM"/>
                                         </constraints>
                                     </view>
@@ -820,23 +825,28 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HP2-bX-haM">
-                                                <rect key="frame" x="16" y="8" width="130" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Z2z-6F-rIn" userLabel="Destination Label Container">
+                                                <rect key="frame" x="16" y="8" width="154" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HP2-bX-haM">
+                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" systemColor="tertiaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bpE-ol-Zeu">
+                                                        <rect key="frame" x="134" y="0.0" width="20" height="20"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="gqc-Yh-6Es" firstAttribute="top" secondItem="a4y-rS-SzB" secondAttribute="top" constant="24" id="1p6-Wt-70g"/>
                                             <constraint firstItem="gqc-Yh-6Es" firstAttribute="centerX" secondItem="a4y-rS-SzB" secondAttribute="centerX" id="49e-Lf-ev0"/>
                                             <constraint firstAttribute="height" constant="120" id="a5J-oO-ewb"/>
-                                            <constraint firstItem="HP2-bX-haM" firstAttribute="top" secondItem="a4y-rS-SzB" secondAttribute="top" constant="8" id="e39-9y-Lar"/>
-                                            <constraint firstItem="HP2-bX-haM" firstAttribute="leading" secondItem="gqc-Yh-6Es" secondAttribute="leading" id="lMI-x3-06K"/>
                                             <constraint firstItem="gqc-Yh-6Es" firstAttribute="width" secondItem="a4y-rS-SzB" secondAttribute="width" multiplier="0.925581" id="qfD-zP-mgD"/>
                                             <constraint firstAttribute="bottom" secondItem="gqc-Yh-6Es" secondAttribute="bottom" id="udY-jw-bQ6"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HP2-bX-haM" secondAttribute="trailing" constant="20" symbolic="YES" id="zYv-em-Lfg"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -866,7 +876,9 @@
                     <connections>
                         <outlet property="descriptionInput" destination="sZr-sz-6yF" id="yr1-B5-uAN"/>
                         <outlet property="destinationAddressInput" destination="gqc-Yh-6Es" id="nrl-k8-7Yq"/>
+                        <outlet property="destinationAddressLoadingIndicator" destination="bpE-ol-Zeu" id="2dq-G1-Duz"/>
                         <outlet property="originAddressInput" destination="DuA-Gp-KhO" id="1Qc-xJ-Q0D"/>
+                        <outlet property="originAddressLoadingIndicator" destination="pmt-rR-Fab" id="E4r-lL-Hy7"/>
                         <outlet property="titleInput" destination="cks-Ev-7OF" id="rFL-QD-bsb"/>
                     </connections>
                 </viewController>
