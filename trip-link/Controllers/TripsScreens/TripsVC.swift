@@ -1,19 +1,17 @@
 //
-//  ViewController.swift
+//  TripsScreenVC.swift
 //  trip-link
 //
-//  Created by Sajjad Choobdari on 8/28/23.
+//  Created by Sajjad Choobdari on 9/16/23.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class TripsScreenVC: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
 	}
 
-
 }
-
