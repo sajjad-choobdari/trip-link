@@ -1,5 +1,5 @@
 //
-//  ContactsTableViewCell.swift
+//  ContactTableViewCell.swift
 //  trip-link
 //
 //  Created by Sajjad Choobdari on 9/3/23.
@@ -7,7 +7,11 @@
 
 import UIKit
 
-class ContactsTableViewCell: UITableViewCell {
+class ContactTableViewCell: UITableViewCell {
+
+	@IBOutlet weak var contactImageView: UIImageView!
+	@IBOutlet weak var contactSubtitleLabel: UILabel!
+	@IBOutlet weak var contactTitleLabel: UILabel!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -17,7 +21,7 @@ class ContactsTableViewCell: UITableViewCell {
 		super.layoutSubviews()
 
 		if let imageView = self.imageView {
-			imageView.resize(size: 40.0)
+			imageView.resize(size: 34.0)
 			imageView.makeRound()
 		}
 	}

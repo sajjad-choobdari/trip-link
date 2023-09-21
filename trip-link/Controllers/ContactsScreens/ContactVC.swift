@@ -177,19 +177,17 @@ class ContactScreenVC: UIViewController {
 	}
 
 	private func handleAddingNewContact() {
-		guard let image = imageView.image else {
-			return
-		}
-		guard let imageData = image.pngData() else {
-			return
-		}
+		let isSymbolImage = imageView.image?.isSymbolImage ?? true
+		let thumbnailSize = CGSize(width: 34, height: 34)
+
 		contactsModel.addNewContact(
 			firstName: firstNameTextField.text ?? "No Name",
 			lastName: lastNameTextField.text,
 			phone: phoneTextField.text,
 			email: emailTextField.text,
 			note: noteTextField.text,
-			image: imageData
+			image: isSymbolImage ? nil : imageView.image?.pngData(),
+			thumbnailImage: isSymbolImage ? nil : imageView.image?.createResizedImage(withTargetSize: thumbnailSize)?.pngData()
 		) { addedContact in
 			self.contact = addedContact
 			self.contactViewMode = .view
@@ -243,13 +241,17 @@ class ContactScreenVC: UIViewController {
 		if (contactViewMode == .edit) {
 			// save changes and update model and view and get back to view mode
 			if let contactIdToModify = contact?.immutableProps.id {
+				let isSymbolImage = imageView.image?.isSymbolImage ?? true
+				let thumbnailSize = CGSize(width: 34, height: 34)
+
 				let modifiedContact = Contact(
 					firstName: firstNameTextField.text,
 					lastName: lastNameTextField.text,
 					phone: phoneTextField.text,
 					email: emailTextField.text,
 					note: noteTextField.text,
-					image: imageView.image?.pngData()
+					image: isSymbolImage ? nil : imageView.image?.pngData(),
+					thumbnailImage: isSymbolImage ? nil : imageView.image?.createResizedImage(withTargetSize: thumbnailSize)?.pngData()
 				)
 				contactsModel.updateContactByUUID(id: contactIdToModify, modifiedData: modifiedContact.mutableProps) {
 					self.contact?.mutableProps = modifiedContact.mutableProps
