@@ -19,7 +19,7 @@
 		642D3EB82AA5261B0039B671 /* ContactsSettingsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642D3EB72AA5261B0039B671 /* ContactsSettingsTableVC.swift */; };
 		64437DD22AB5D7C100DD264D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 64437DD12AB5D7C100DD264D /* Podfile */; };
 		64437DD42AB5D82E00DD264D /* neshan.license in Resources */ = {isa = PBXBuildFile; fileRef = 64437DD32AB5D82E00DD264D /* neshan.license */; };
-		64517A432AA4BE22004F939E /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64517A412AA4BE22004F939E /* ContactsTableViewCell.swift */; };
+		64517A432AA4BE22004F939E /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64517A412AA4BE22004F939E /* ContactTableViewCell.swift */; };
 		6458F2972AA1C20F0065051F /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F2962AA1C20F0065051F /* UIViewControllerExtensions.swift */; };
 		6458F29B2AA1C41B0065051F /* ContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F29A2AA1C41B0065051F /* ContactVC.swift */; };
 		6458F29E2AA1D0220065051F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458F29D2AA1D0220065051F /* Helpers.swift */; };
@@ -42,6 +42,7 @@
 		64D10EE72AA7294800684696 /* NegativePaddedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D10EE62AA7294800684696 /* NegativePaddedTextView.swift */; };
 		64D7E2CE2AB8648B005ABE7C /* TripDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D7E2CD2AB8648B005ABE7C /* TripDetailsVC.swift */; };
 		64DCE56C2AAE0A2F00DD0D28 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DCE56B2AAE0A2F00DD0D28 /* NetworkManager.swift */; };
+		64EAE6E22ABB8FC6001C1261 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64EAE6E12ABB8FC6001C1261 /* ContactTableViewCell.xib */; };
 		BF45704F604C786B724F4460 /* Pods_trip_link.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5FD6EC023F499580B68A70B /* Pods_trip_link.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +63,7 @@
 		642D3EB72AA5261B0039B671 /* ContactsSettingsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSettingsTableVC.swift; sourceTree = "<group>"; };
 		64437DD12AB5D7C100DD264D /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		64437DD32AB5D82E00DD264D /* neshan.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = neshan.license; sourceTree = "<group>"; };
-		64517A412AA4BE22004F939E /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		64517A412AA4BE22004F939E /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		6458F2962AA1C20F0065051F /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		6458F29A2AA1C41B0065051F /* ContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactVC.swift; sourceTree = "<group>"; };
 		6458F29D2AA1D0220065051F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		64D1CAAD2AB5DA1300D6F135 /* trip-link-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "trip-link-Bridging-Header.h"; sourceTree = "<group>"; };
 		64D7E2CD2AB8648B005ABE7C /* TripDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailsVC.swift; sourceTree = "<group>"; };
 		64DCE56B2AAE0A2F00DD0D28 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		64EAE6E12ABB8FC6001C1261 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		E5FD6EC023F499580B68A70B /* Pods_trip_link.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trip_link.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -162,9 +164,11 @@
 				642918572A9C86E3004F4390 /* Main.storyboard */,
 				6429185C2A9C86E5004F4390 /* LaunchScreen.storyboard */,
 				64CF01C42AA274E4004907FD /* CircularImageView.swift */,
-				64517A412AA4BE22004F939E /* ContactsTableViewCell.swift */,
 				64D10EE62AA7294800684696 /* NegativePaddedTextView.swift */,
 				645E1CD62AB9F95A00D9E904 /* TripTableViewCell.xib */,
+				645E1CD52AB9F95A00D9E904 /* TripTableViewCell.swift */,
+				64EAE6E12ABB8FC6001C1261 /* ContactTableViewCell.xib */,
+				64517A412AA4BE22004F939E /* ContactTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,7 +239,6 @@
 		645E1CD42AB9EE1100D9E904 /* TripsScreens */ = {
 			isa = PBXGroup;
 			children = (
-				645E1CD52AB9F95A00D9E904 /* TripTableViewCell.swift */,
 				646D53E62AB5EE2A002B0B3E /* TripsVC.swift */,
 				646D53E82AB5EEC1002B0B3E /* TripsTableVC.swift */,
 				6400198A2AB6D72C00323CC9 /* TripMapVC.swift */,
@@ -311,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64EAE6E22ABB8FC6001C1261 /* ContactTableViewCell.xib in Resources */,
 				64437DD22AB5D7C100DD264D /* Podfile in Resources */,
 				6429186B2A9C9190004F4390 /* .gitignore in Resources */,
 				64437DD42AB5D82E00DD264D /* neshan.license in Resources */,
@@ -354,7 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				646D53E92AB5EEC1002B0B3E /* TripsTableVC.swift in Sources */,
-				64517A432AA4BE22004F939E /* ContactsTableViewCell.swift in Sources */,
+				64517A432AA4BE22004F939E /* ContactTableViewCell.swift in Sources */,
 				642D3EB82AA5261B0039B671 /* ContactsSettingsTableVC.swift in Sources */,
 				64D10EE32AA6F72700684696 /* AlertUtility.swift in Sources */,
 				64D10EE12AA6EF9100684696 /* PermissionsManager.swift in Sources */,
@@ -534,6 +538,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TNAU7B647N;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -569,8 +574,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TNAU7B647N;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -590,6 +597,7 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.choobdari.sajjad.trip-link";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

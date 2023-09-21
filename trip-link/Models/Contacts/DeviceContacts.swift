@@ -34,29 +34,21 @@ class CNContactDeviceContactsLoader: DeviceContactsLoader {
 		]
 		let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
 
-		DispatchQueue.global(qos: .userInitiated).async {
-			do {
-				try deviceContactsStore.enumerateContacts(with: request) { (deviceContact, stop) in
-					let givenName = deviceContact.givenName
-					let familyName = deviceContact.familyName
-					let phoneNumber = deviceContact.phoneNumbers.first?.value.stringValue ?? ""
-					let emailAddress = deviceContact.emailAddresses.first?.value ?? ""
-					let imageData = deviceContact.imageData
+		try deviceContactsStore.enumerateContacts(with: request) { (deviceContact, stop) in
+			let givenName = deviceContact.givenName
+			let familyName = deviceContact.familyName
+			let phoneNumber = deviceContact.phoneNumbers.first?.value.stringValue ?? ""
+			let emailAddress = deviceContact.emailAddresses.first?.value ?? ""
+			let imageData = deviceContact.imageData
 
-					let newContact = Contact(
-						firstName: givenName,
-						lastName: familyName,
-						phone: phoneNumber,
-						email: emailAddress as String?,
-						image: imageData
-					)
-					DispatchQueue.main.async {
-						contacts.append(newContact)
-					}
-				}
-			} catch {
-					//
-			}
+			let newContact = Contact(
+				firstName: givenName,
+				lastName: familyName,
+				phone: phoneNumber,
+				email: emailAddress as String?,
+				image: imageData
+			)
+			contacts.append(newContact)
 		}
 
 		return contacts

@@ -49,6 +49,7 @@ class Contacts {
 		email: String? = nil,
 		note: String? = nil,
 		image: Data? = nil,
+		thumbnailImage: Data? = nil,
 		completion: ((Contact) -> Void)? = nil
 	) {
 		let newContact = Contact(
@@ -57,7 +58,8 @@ class Contacts {
 			phone: phone,
 			email: email,
 			note: note,
-			image: image
+			image: image,
+			thumbnailImage: thumbnailImage
 		)
 		Contacts.items.append(newContact)
 		storeContacts()

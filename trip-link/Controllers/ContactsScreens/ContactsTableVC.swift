@@ -36,8 +36,8 @@ class ContactsTableVC: UITableViewController {
 	// Life Cycles
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		self.tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: CONTACT_CELL_REUSE_IDENTIFIER)
+		let nib = UINib(nibName: String(describing: ContactTableViewCell.self), bundle: nil)
+		self.tableView.register(nib, forCellReuseIdentifier: CONTACT_CELL_REUSE_IDENTIFIER)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -73,18 +73,15 @@ extension ContactsTableVC {
 
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: CONTACT_CELL_REUSE_IDENTIFIER, for: indexPath) as! ContactsTableViewCell
-			//	cell = ContactsTableViewCell(style: .subtitle, reuseIdentifier: contactCellReuseIdentifier)
+		let cell = tableView.dequeueReusableCell(withIdentifier: CONTACT_CELL_REUSE_IDENTIFIER, for: indexPath) as! ContactTableViewCell
 		let contactItem = contactsModel.getItems()[indexPath.row]
-		cell.textLabel?.text = getFullName(contactItem: contactItem)
-		cell.detailTextLabel?.text = contactItem.mutableProps.phoneNumber
-		if let imageView = cell.imageView {
-			if let imageData = contactItem.mutableProps.image {
-				imageView.image = UIImage(data: imageData)
-			} else {
-				imageView.image = UIImage(systemName: "person.crop.circle")
-			}
+
+		cell.contactTitleLabel.text = getFullName(contactItem: contactItem)
+		cell.contactSubtitleLabel.text = contactItem.mutableProps.phoneNumber
+		if let imageData = contactItem.mutableProps.image {
+			cell.contactImageView.image = UIImage(data: imageData)
 		}
+
 		return cell
 	}
 
@@ -94,6 +91,19 @@ extension ContactsTableVC {
 
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
 		return .none
+	}
+
+	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let item = contactsModel.getItems()[indexPath.row]
+
+		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+			self.contactsModel.deleteContactByUUID(id: item.immutableProps.id) {
+				tableView.deleteRows(at: [indexPath], with: .automatic)
+			}
+			completionHandler(true)
+		}
+		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+		return configuration
 	}
 }
 

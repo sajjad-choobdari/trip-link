@@ -24,6 +24,7 @@ struct MutableContactProperties: Encodable, Decodable {
 	var emailAddress: String?
 	var note: String?
 	var image: Data?
+	var thumbnailImage: Data?
 
 	init(
 		firstName: String? = nil,
@@ -31,7 +32,8 @@ struct MutableContactProperties: Encodable, Decodable {
 		phone: String? = nil,
 		email: String? = nil,
 		note: String? = nil,
-		image: Data? = nil
+		image: Data? = nil,
+		thumbnailImage: Data? = nil
 	) {
 
 		self.givenName = firstName
@@ -42,6 +44,9 @@ struct MutableContactProperties: Encodable, Decodable {
 
 		if let imageData = image {
 			self.image = imageData
+		}
+		if let thumbnailImageData = thumbnailImage {
+			self.thumbnailImage = thumbnailImageData
 		}
 	}
 }
@@ -57,7 +62,8 @@ struct Contact: Encodable, Decodable {
 		email: String? = nil,
 		note: String? = nil,
 		//		birthday: Date? = nil,
-		image: Data? = nil
+		image: Data? = nil,
+		thumbnailImage: Data? = nil
 	) {
 		immutableProps = ImmutableContactProperties()
 		mutableProps = MutableContactProperties(
@@ -66,7 +72,8 @@ struct Contact: Encodable, Decodable {
 			phone: phone,
 			email: email,
 			note: note,
-			image: image
+			image: image,
+			thumbnailImage: thumbnailImage
 		)
 	}
 }
